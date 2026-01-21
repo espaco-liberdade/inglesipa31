@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aula 31: Verbos com "-ing" como Nomes – Gerúndios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET E BASE --- */
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px 15px;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        /* --- TIPOGRAFIA --- */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            line-height: 1.3;
+        }
+        
+        h2, h3, h4 { color: #2c3e50; margin-top: 25px; }
+        h3 { color: #34495e; font-size: 1.25rem; border-left: 4px solid #3498db; padding-left: 10px; }
+        h4 { color: #c0392b; font-size: 1.1rem; margin-bottom: 10px; }
+        
+        p, li { font-size: 1rem; margin-bottom: 10px; }
+        
+        .emoji-large { font-size: 1.5rem; }
+        .emoji-small { font-size: 1.2rem; }
+
+        /* --- DESTAQUES E CAIXAS --- */
+        .theme-intro, .nota-gramatical, .nota-dica, .secao-exercicios, .extra-task {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid transparent;
+        }
+
+        .theme-intro { background-color: #eaf2f8; border-left-color: #3498db; }
+        .nota-gramatical { background-color: #ecf0f1; border-left-color: #f39c12; }
+        .nota-dica { background-color: #e8f6f3; border-left-color: #16a085; }
+        .extra-task { background-color: #f5eef8; border-left-color: #9b59b6; }
+        .secao-exercicios { background-color: #fff8e1; border-left-color: #f39c12; }
+
+        .example-word { color: #2980b9; font-weight: 700; }
+        
+        /* --- ESTILOS DE IPA E PRONÚNCIA --- */
+        code, .ipa-symbol {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #f1f1f1;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #e74c3c;
+            font-size: 0.9em;
+        }
+        
+        .character-portuguese-phonetics {
+            display: block;
+            color: #27ae60;
+            font-style: italic;
+            font-size: 0.85em;
+            margin-top: 2px;
+        }
+
+        /* --- BOTÃO DE NAVEGAÇÃO --- */
+        .nav-btn {
+            display: block;
+            width: 100%;
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin: 10px 0;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-btn:hover { background-color: #2c3e50; }
+
+        /* --- TABELAS OTIMIZADAS PARA MOBILE --- */
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 100%; 
+        }
+
+        th {
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        .details-cell {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .details-translation {
+            display: block;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed #ddd;
+            color: #444;
+            font-weight: 500;
+        }
+
+        /* --- BOTÃO DE ÁUDIO GERAL --- */
+        .audio-btn-inline {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            vertical-align: middle;
+            margin-left: 5px;
+            padding: 0 5px;
+        }
+        
+        /* --- VOCABULÁRIO: GRID DE CARDS (Mobile First) --- */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        @media (min-width: 600px) {
+            .vocab-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        
+        .vocab-item:active { transform: scale(0.98); background-color: #fdfdfd; }
+
+        .vocab-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .vocab-en {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .vocab-ipa {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+            color: #e67e22;
+        }
+
+        .vocab-pt {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .audio-btn-round {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-left: 10px;
+            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+        }
+        
+        .audio-btn-round:active { background-color: #2980b9; }
+
+        /* --- GABARITO E EXERCÍCIOS --- */
+        .fill-in-blank {
+            display: inline-block;
+            min-width: 60px;
+            border-bottom: 2px solid #3498db;
+            text-align: center;
+            color: #3498db;
+            font-weight: bold;
+            padding: 0 5px;
+        }
+
+        details.gabarito {
+            margin-top: 20px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        details.gabarito summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #2c3e50;
+            padding: 10px;
+            list-style: none;
+        }
+        
+        details.gabarito summary::after { content: " 👇"; }
+        details.gabarito[open] summary::after { content: " 👆"; }
+
+        .gabarito-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            color: #555;
+        }
+
+        .quiz-options {
+            list-style-type: lower-alpha;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Botão Navegação Topo -->
+        <a href="https://espaco-liberdade.github.io/inglesipa/" class="nav-btn">⬅ Voltar ao Menu</a>
+
+        <h1>Aula 31: Verbos com "-ing" como Nomes – Gerúndios <span class="emoji-large">🏃‍♂️🎨</span><br><span style="font-size: 0.8em; font-weight: normal;">(Verbs with "-ing" as Nouns – Gerunds)</span></h1>
+
+        <div class="theme-intro">
+            <p>Bem-vindo(a) à Aula 31! <span class="emoji-small">✨</span></p>
+            <p>Hoje, vamos explorar uma forma muito versátil do verbo em inglês: o <strong>Gerúndio (Gerund)</strong>. Aprenderemos como a forma "-ing" de um verbo pode funcionar como um substantivo, permitindo-nos falar sobre <strong>hobbies, interesses, atividades que gostamos ou não</strong>, e temas como <strong>saúde, exercícios e qualidade de vida</strong>. Prepare-se para nomear suas ações! <span class="emoji-small">🏊‍♂️🧘‍♀️🥗</span></p>
+        </div>
+
+        <h2>31. Gerúndios: Ações como Substantivos</h2>
+
+        <section id="gerund-intro">
+            <h3>31.1 O Que é um Gerúndio? <span class="emoji-small">🧩</span></h3>
+            <p>O <strong>Gerúndio (Gerund)</strong> em inglês é a forma do verbo que termina em <strong>-ing</strong> (ex: reading, swimming) quando ela é usada como um <strong>substantivo</strong>. Isso significa que o gerúndio pode ser o sujeito de uma frase, o objeto de um verbo, ou o objeto de uma preposição.</p>
+            <ul>
+                <li><span class="example-word">Reading</span> is my favorite hobby. (Ler é meu hobby favorito.) - <em>"Reading" é o sujeito.</em></li>
+                <li>I enjoy <span class="example-word">swimming</span>. (Eu gosto de natação.) - <em>"Swimming" é o objeto.</em></li>
+                <li>She is good at <span class="example-word">painting</span>. (Ela é boa em pintura.) - <em>"Painting" é o objeto da preposição "at".</em></li>
+            </ul>
+        </section>
+
+        <section id="gerund-practice-tables">
+            <h3>31.2 Prática: Gerúndios em Ação</h3>
+            <p>Vamos ver como os gerúndios são usados em diferentes contextos, especialmente ao falar sobre saúde, hobbies e bem-estar.</p>
+            
+            <div class="table-responsive-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 45%;">Frase em Inglês (Gerúndio)</th>
+                            <th>Detalhes (IPA / Tradução)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Gerúndio como Sujeito -->
+                        <tr>
+                            <td><span class="example-word">Exercising</span> regularly is crucial for a long life. <button class="audio-btn-inline" onclick="playAudio('Exercising regularly is crucial for a long life.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ˈeksərsaɪzɪŋ ˈreɡjələrli.../</span><br><span class="character-portuguese-phonetics">(ÉK-sãr-sai-zin RÉ-guiu-lãr-li...)</span><span class="details-translation">Exercitar-se regularmente é crucial para uma vida longa. (Sujeito)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="example-word">Eating</span> a balanced diet prevents many diseases. <button class="audio-btn-inline" onclick="playAudio('Eating a balanced diet prevents many diseases.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ˈiːtɪŋ ə ˈbælənst ˈdaɪət.../</span><br><span class="character-portuguese-phonetics">(ÍI-tin ã BÉ-lãnst DÁI-ãt...)</span><span class="details-translation">Comer uma dieta balanceada previne muitas doenças. (Sujeito)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="example-word">Learning</span> new things keeps the mind sharp during aging. <button class="audio-btn-inline" onclick="playAudio('Learning new things keeps the mind sharp during aging.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ˈlɜːrnɪŋ nuː θɪŋz kiːps.../</span><br><span class="character-portuguese-phonetics">(LÃR-nin núu THÊNGZ kíips...)</span><span class="details-translation">Aprender coisas novas mantém a mente afiada durante o envelhecimento. (Sujeito)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="example-word">Traveling</span> can broaden your horizons. <button class="audio-btn-inline" onclick="playAudio('Traveling can broaden your horizons.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ˈtrævlɪŋ kæn ˈbrɔːdn jɔːr həˈraɪznz/</span><br><span class="character-portuguese-phonetics">(TRÉ-võ-lin kén BRÓ-dãn iór rõ-RÁI-zãnz)</span><span class="details-translation">Viajar pode ampliar seus horizontes. (Sujeito)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="example-word">Sleeping</span> for eight hours improves concentration. <button class="audio-btn-inline" onclick="playAudio('Sleeping for eight hours improves concentration.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ˈsliːpɪŋ fər eɪt ˈaʊərz.../</span><br><span class="character-portuguese-phonetics">(SLÍI-pin fór ÊIT ÁU-ãrz...)</span><span class="details-translation">Dormir por oito horas melhora a concentração. (Sujeito)</span></td>
+                        </tr>
+                        <!-- Gerúndio após Verbos -->
+                        <tr>
+                            <td>I <span class="example-word">enjoy jogging</span> in the morning. <button class="audio-btn-inline" onclick="playAudio('I enjoy jogging in the morning.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/aɪ ɪnˈdʒɔɪ ˈdʒɑːɡɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÁI en-DJÓI DJÓ-guin...)</span><span class="details-translation">Eu gosto de correr de manhã. (Objeto de 'enjoy')</span></td>
+                        </tr>
+                        <tr>
+                            <td>She <span class="example-word">loves cooking</span> for her family. <button class="audio-btn-inline" onclick="playAudio('She loves cooking for her family.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ʃiː lʌvz ˈkʊkɪŋ.../</span><br><span class="character-portuguese-phonetics">(XÍI LÂVZ CÚ-kin...)</span><span class="details-translation">Ela ama cozinhar para sua família. (Objeto de 'love')</span></td>
+                        </tr>
+                        <tr>
+                            <td>He <span class="example-word">dislikes waiting</span> at the doctor's office. <button class="audio-btn-inline" onclick="playAudio('He dislikes waiting at the doctor\'s office.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/hiː dɪsˈlaɪks ˈweɪtɪŋ.../</span><br><span class="character-portuguese-phonetics">(RÍI dês-LÁIKS UÊI-tin...)</span><span class="details-translation">Ele não gosta de esperar no consultório médico. (Objeto de 'dislike')</span></td>
+                        </tr>
+                        <tr>
+                            <td>They <span class="example-word">finished renovating</span> their house. <button class="audio-btn-inline" onclick="playAudio('They finished renovating their house.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ðeɪ ˈfɪnɪʃt ˈrenəveɪtɪŋ.../</span><br><span class="character-portuguese-phonetics">(DHÊI FÊ-nêsht RÉ-nõ-vei-tin...)</span><span class="details-translation">Eles terminaram de reformar a casa deles. (Objeto de 'finish')</span></td>
+                        </tr>
+                        <tr>
+                            <td>We <span class="example-word">avoid eating</span> processed foods. <button class="audio-btn-inline" onclick="playAudio('We avoid eating processed foods.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/wiː əˈvɔɪd ˈiːtɪŋ ˈprɑːsest fuːdz/</span><br><span class="character-portuguese-phonetics">(UÍI ã-VÓID ÍI-tin PRÓ-sest FÚUDZ)</span><span class="details-translation">Nós evitamos comer alimentos processados. (Objeto de 'avoid')</span></td>
+                        </tr>
+                        <tr>
+                            <td>My doctor <span class="example-word">suggested trying</span> yoga for stress relief. <button class="audio-btn-inline" onclick="playAudio('My doctor suggested trying yoga for stress relief.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/maɪ ˈdɑːktər səˈdʒestɪd ˈtraɪɪŋ.../</span><br><span class="character-portuguese-phonetics">(MÁI DÓK-tãr sã-DJÉS-têd TRÁI-in...)</span><span class="details-translation">Meu médico sugeriu tentar ioga para alívio do estresse. (Objeto de 'suggest')</span></td>
+                        </tr>
+                        <tr>
+                            <td>I <span class="example-word">can't stand listening</span> to loud music. <button class="audio-btn-inline" onclick="playAudio('I can\'t stand listening to loud music.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/aɪ kænt stænd ˈlɪsnɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÁI KÉNT STÉND LÊ-sã-nin...)</span><span class="details-translation">Eu não suporto ouvir música alta. (Objeto de 'can't stand')</span></td>
+                        </tr>
+                        <tr>
+                            <td>He <span class="example-word">admitted making</span> a mistake in his diet plan. <button class="audio-btn-inline" onclick="playAudio('He admitted making a mistake in his diet plan.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/hiː ædˈmɪtɪd ˈmeɪkɪŋ.../</span><br><span class="character-portuguese-phonetics">(RÍI éd-MÊ-têd MÊI-kin...)</span><span class="details-translation">Ele admitiu ter cometido um erro em seu plano de dieta. (Objeto de 'admit')</span></td>
+                        </tr>
+                        <tr>
+                            <td>She <span class="example-word">keeps forgetting</span> to take her vitamins. <button class="audio-btn-inline" onclick="playAudio('She keeps forgetting to take her vitamins.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ʃiː kiːps fərˈɡetɪŋ.../</span><br><span class="character-portuguese-phonetics">(XÍI KÍIPS fór-GUÉ-tin...)</span><span class="details-translation">Ela continua esquecendo de tomar suas vitaminas. (Objeto de 'keep')</span></td>
+                        </tr>
+                        <tr>
+                            <td>I <span class="example-word">miss living</span> in a smaller, quieter city. <button class="audio-btn-inline" onclick="playAudio('I miss living in a smaller, quieter city.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/aɪ mɪs ˈlɪvɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÁI MÊS LÊ-vin...)</span><span class="details-translation">Eu sinto falta de morar em uma cidade menor e mais tranquila. (Objeto de 'miss')</span></td>
+                        </tr>
+                        <!-- Gerúndio após Preposições -->
+                        <tr>
+                            <td>I am interested <span class="example-word">in learning</span> about healthy aging. <button class="audio-btn-inline" onclick="playAudio('I am interested in learning about healthy aging.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... ɪn ˈlɜːrnɪŋ.../</span><br><span class="character-portuguese-phonetics">(... în LÃR-nin...)</span><span class="details-translation">Estou interessado em aprender sobre envelhecimento saudável. (Após 'in')</span></td>
+                        </tr>
+                        <tr>
+                            <td>She is good <span class="example-word">at playing</span> tennis. <button class="audio-btn-inline" onclick="playAudio('She is good at playing tennis.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... æt ˈpleɪɪŋ.../</span><br><span class="character-portuguese-phonetics">(... ét PLÊI-in...)</span><span class="details-translation">Ela é boa em jogar tênis. (Após 'at')</span></td>
+                        </tr>
+                        <tr>
+                            <td>Thank you <span class="example-word">for helping</span> me with my exercise routine. <button class="audio-btn-inline" onclick="playAudio('Thank you for helping me with my exercise routine.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... fər ˈhelpɪŋ.../</span><br><span class="character-portuguese-phonetics">(... fór RÉL-pin...)</span><span class="details-translation">Obrigado por me ajudar com minha rotina de exercícios. (Após 'for')</span></td>
+                        </tr>
+                        <tr>
+                            <td>He improved his health <span class="example-word">by eating</span> better. <button class="audio-btn-inline" onclick="playAudio('He improved his health by eating better.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... baɪ ˈiːtɪŋ.../</span><br><span class="character-portuguese-phonetics">(... bái ÍI-tin...)</span><span class="details-translation">Ele melhorou sua saúde comendo melhor. (Após 'by')</span></td>
+                        </tr>
+                        <tr>
+                            <td>What about <span class="example-word">going</span> for a run? <button class="audio-btn-inline" onclick="playAudio('What about going for a run?')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/wʌt əˈbaʊt ˈɡoʊɪŋ.../</span><br><span class="character-portuguese-phonetics">(uót ã-BÁUT GÔU-in...)</span><span class="details-translation">Que tal ir correr? (Após 'about')</span></td>
+                        </tr>
+                        <tr>
+                            <td>He is responsible <span class="example-word">for managing</span> the team. <button class="audio-btn-inline" onclick="playAudio('He is responsible for managing the team.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... fɔːr ˈmænɪdʒɪŋ.../</span><br><span class="character-portuguese-phonetics">(... fór MÉ-nĩ-djin...)</span><span class="details-translation">Ele é responsável por gerenciar a equipe. (Após 'for')</span></td>
+                        </tr>
+                        <tr>
+                            <td>I am tired <span class="example-word">of hearing</span> the same excuses. <button class="audio-btn-inline" onclick="playAudio('I am tired of hearing the same excuses.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... əv ˈhɪrɪŋ.../</span><br><span class="character-portuguese-phonetics">(... óv RÍ-rin...)</span><span class="details-translation">Estou cansado de ouvir as mesmas desculpas. (Após 'of')</span></td>
+                        </tr>
+                        <tr>
+                            <td>Before <span class="example-word">leaving</span> the house, she checked her emails. <button class="audio-btn-inline" onclick="playAudio('Before leaving the house, she checked her emails.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/bɪˈfɔːr ˈliːvɪŋ.../</span><br><span class="character-portuguese-phonetics">(bi-FÓR LÍI-vin...)</span><span class="details-translation">Antes de sair de casa, ela checou seus emails. (Após 'before')</span></td>
+                        </tr>
+                        <tr>
+                            <td>After <span class="example-word">finishing</span> her workout, she felt energized. <button class="audio-btn-inline" onclick="playAudio('After finishing her workout, she felt energized.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ˈæftər ˈfɪnɪʃɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÉF-tãr FÊ-nê-shin...)</span><span class="details-translation">Depois de terminar seu treino, ela se sentiu energizada. (Após 'after')</span></td>
+                        </tr>
+                        <tr>
+                            <td>He succeeded <span class="example-word">in convincing</span> his boss. <button class="audio-btn-inline" onclick="playAudio('He succeeded in convincing his boss.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... ɪn kənˈvɪnsɪŋ.../</span><br><span class="character-portuguese-phonetics">(... în cãn-VÊN-sin...)</span><span class="details-translation">Ele teve sucesso em convencer seu chefe. (Após 'in')</span></td>
+                        </tr>
+                        <tr>
+                            <td>We talked <span class="example-word">about changing</span> our lifestyle. <button class="audio-btn-inline" onclick="playAudio('We talked about changing our lifestyle.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... əˈbaʊt ˈtʃeɪndʒɪŋ.../</span><br><span class="character-portuguese-phonetics">(... ã-BÁUT TCHÊIN-djin...)</span><span class="details-translation">Nós conversamos sobre mudar nosso estilo de vida. (Após 'about')</span></td>
+                        </tr>
+                        <tr>
+                            <td>She apologized <span class="example-word">for being</span> late. <button class="audio-btn-inline" onclick="playAudio('She apologized for being late.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... fɔːr ˈbiːɪŋ.../</span><br><span class="character-portuguese-phonetics">(... fór BÍI-in...)</span><span class="details-translation">Ela se desculpou por estar atrasada. (Após 'for')</span></td>
+                        </tr>
+                        <tr>
+                            <td>Instead of <span class="example-word">watching</span> TV, let's go for a walk. <button class="audio-btn-inline" onclick="playAudio('Instead of watching TV, let\'s go for a walk.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/ɪnˈsted əv ˈwɑːtʃɪŋ.../</span><br><span class="character-portuguese-phonetics">(în-STÉD óv UÓ-tchin...)</span><span class="details-translation">Em vez de assistir TV, vamos caminhar. (Após 'instead of')</span></td>
+                        </tr>
+                        <tr>
+                            <td>He insisted <span class="example-word">on paying</span> for dinner. <button class="audio-btn-inline" onclick="playAudio('He insisted on paying for dinner.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... ɑːn ˈpeɪɪŋ.../</span><br><span class="character-portuguese-phonetics">(... ón PÊI-in...)</span><span class="details-translation">Ele insistiu em pagar pelo jantar. (Após 'on')</span></td>
+                        </tr>
+                        <tr>
+                            <td>She improved her English <span class="example-word">by practicing</span> every day. <button class="audio-btn-inline" onclick="playAudio('She improved her English by practicing every day.')">🔊</button></td>
+                            <td class="details-cell"><span class="ipa-symbol">/... baɪ ˈpræktɪsɪŋ.../</span><br><span class="character-portuguese-phonetics">(... bái PRÉK-tĩ-sin...)</span><span class="details-translation">Ela melhorou seu inglês praticando todos os dias. (Após 'by')</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="vocabulario">
+            <h3>Vocabulário da Aula: Hobbies, Interesses e Bem-Estar 📚</h3>
+            <p>Verbos e gerúndios de nível intermediário relacionados ao tema.</p>
+            <div class="vocab-grid">
+                <!-- Row 1 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Achieving</span><span class="vocab-ipa">/əˈtʃiːvɪŋ/</span><span class="vocab-pt">ALCANÇAR / CONQUISTAR</span></div><button class="audio-btn-round" onclick="playAudio('Achieving')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Avoiding</span><span class="vocab-ipa">/əˈvɔɪdɪŋ/</span><span class="vocab-pt">EVITAR</span></div><button class="audio-btn-round" onclick="playAudio('Avoiding')">🔊</button></div>
+                <!-- Row 2 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Balancing</span><span class="vocab-ipa">/ˈbælənsɪŋ/</span><span class="vocab-pt">EQUILIBRAR</span></div><button class="audio-btn-round" onclick="playAudio('Balancing')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Building</span><span class="vocab-ipa">/ˈbɪldɪŋ/</span><span class="vocab-pt">CONSTRUIR</span></div><button class="audio-btn-round" onclick="playAudio('Building')">🔊</button></div>
+                <!-- Row 3 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Celebrating</span><span class="vocab-ipa">/ˈseləbreɪtɪŋ/</span><span class="vocab-pt">CELEBRAR</span></div><button class="audio-btn-round" onclick="playAudio('Celebrating')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Challenging</span><span class="vocab-ipa">/ˈtʃæləndʒɪŋ/</span><span class="vocab-pt">DESAFIAR</span></div><button class="audio-btn-round" onclick="playAudio('Challenging')">🔊</button></div>
+                <!-- Row 4 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Collecting</span><span class="vocab-ipa">/kəˈlektɪŋ/</span><span class="vocab-pt">COLECIONAR</span></div><button class="audio-btn-round" onclick="playAudio('Collecting')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Contributing</span><span class="vocab-ipa">/kənˈtrɪbjuːtɪŋ/</span><span class="vocab-pt">CONTRIBUIR</span></div><button class="audio-btn-round" onclick="playAudio('Contributing')">🔊</button></div>
+                <!-- Row 5 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Coping with</span><span class="vocab-ipa">/ˈkoʊpɪŋ wɪð/</span><span class="vocab-pt">LIDAR COM (ALGO)</span></div><button class="audio-btn-round" onclick="playAudio('Coping with')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Creating</span><span class="vocab-ipa">/kriˈeɪtɪŋ/</span><span class="vocab-pt">CRIAR</span></div><button class="audio-btn-round" onclick="playAudio('Creating')">🔊</button></div>
+                <!-- Row 6 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Developing</span><span class="vocab-ipa">/dɪˈveləpɪŋ/</span><span class="vocab-pt">DESENVOLVER</span></div><button class="audio-btn-round" onclick="playAudio('Developing')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Discovering</span><span class="vocab-ipa">/dɪˈskʌvərɪŋ/</span><span class="vocab-pt">DESCOBRIR</span></div><button class="audio-btn-round" onclick="playAudio('Discovering')">🔊</button></div>
+                <!-- Row 7 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Encouraging</span><span class="vocab-ipa">/ɪnˈkɜːrɪdʒɪŋ/</span><span class="vocab-pt">INCENTIVAR</span></div><button class="audio-btn-round" onclick="playAudio('Encouraging')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Exploring</span><span class="vocab-ipa">/ɪkˈsplɔːrɪŋ/</span><span class="vocab-pt">EXPLORAR</span></div><button class="audio-btn-round" onclick="playAudio('Exploring')">🔊</button></div>
+                <!-- Row 8 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Focusing on</span><span class="vocab-ipa">/ˈfoʊkəsɪŋ ɑːn/</span><span class="vocab-pt">FOCAR EM</span></div><button class="audio-btn-round" onclick="playAudio('Focusing on')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Forgiving</span><span class="vocab-ipa">/fərˈɡɪvɪŋ/</span><span class="vocab-pt">PERDOAR</span></div><button class="audio-btn-round" onclick="playAudio('Forgiving')">🔊</button></div>
+                <!-- Row 9 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Gardening</span><span class="vocab-ipa">/ˈɡɑːrdnɪŋ/</span><span class="vocab-pt">JARDINAGEM</span></div><button class="audio-btn-round" onclick="playAudio('Gardening')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Improving</span><span class="vocab-ipa">/ɪmˈpruːvɪŋ/</span><span class="vocab-pt">MELHORAR</span></div><button class="audio-btn-round" onclick="playAudio('Improving')">🔊</button></div>
+                <!-- Row 10 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Investing</span><span class="vocab-ipa">/ɪnˈvestɪŋ/</span><span class="vocab-pt">INVESTIR</span></div><button class="audio-btn-round" onclick="playAudio('Investing')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Jogging</span><span class="vocab-ipa">/ˈdʒɑːɡɪŋ/</span><span class="vocab-pt">CORRER (LEVE)</span></div><button class="audio-btn-round" onclick="playAudio('Jogging')">🔊</button></div>
+                <!-- Row 11 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Maintaining</span><span class="vocab-ipa">/meɪnˈteɪnɪŋ/</span><span class="vocab-pt">MANTER</span></div><button class="audio-btn-round" onclick="playAudio('Maintaining')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Meditating</span><span class="vocab-ipa">/ˈmedɪteɪtɪŋ/</span><span class="vocab-pt">MEDITAR</span></div><button class="audio-btn-round" onclick="playAudio('Meditating')">🔊</button></div>
+                <!-- Row 12 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Organizing</span><span class="vocab-ipa">/ˈɔːrɡənaɪzɪŋ/</span><span class="vocab-pt">ORGANIZAR</span></div><button class="audio-btn-round" onclick="playAudio('Organizing')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Overcoming</span><span class="vocab-ipa">/ˌoʊvərˈkʌmɪŋ/</span><span class="vocab-pt">SUPERAR</span></div><button class="audio-btn-round" onclick="playAudio('Overcoming')">🔊</button></div>
+                <!-- Row 13 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Practicing</span><span class="vocab-ipa">/ˈpræktɪsɪŋ/</span><span class="vocab-pt">PRATICAR</span></div><button class="audio-btn-round" onclick="playAudio('Practicing')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Prioritizing</span><span class="vocab-ipa">/praɪˈɔːrətaɪzɪŋ/</span><span class="vocab-pt">PRIORIZAR</span></div><button class="audio-btn-round" onclick="playAudio('Prioritizing')">🔊</button></div>
+                <!-- Row 14 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Quitting</span><span class="vocab-ipa">/ˈkwɪtɪŋ/</span><span class="vocab-pt">DESISTIR</span></div><button class="audio-btn-round" onclick="playAudio('Quitting')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Relaxing</span><span class="vocab-ipa">/rɪˈlæksɪŋ/</span><span class="vocab-pt">RELAXAR</span></div><button class="audio-btn-round" onclick="playAudio('Relaxing')">🔊</button></div>
+                <!-- Row 15 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Solving</span><span class="vocab-ipa">/ˈsɑːlvɪŋ/</span><span class="vocab-pt">RESOLVER</span></div><button class="audio-btn-round" onclick="playAudio('Solving')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Strengthening</span><span class="vocab-ipa">/ˈstreŋθənɪŋ/</span><span class="vocab-pt">FORTALECER</span></div><button class="audio-btn-round" onclick="playAudio('Strengthening')">🔊</button></div>
+                <!-- Row 16 -->
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Volunteering</span><span class="vocab-ipa">/ˌvɑːlənˈtɪrɪŋ/</span><span class="vocab-pt">TRABALHAR COMO VOLUNTÁRIO</span></div><button class="audio-btn-round" onclick="playAudio('Volunteering')">🔊</button></div>
+                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Writing</span><span class="vocab-ipa">/ˈraɪtɪŋ/</span><span class="vocab-pt">ESCREVER</span></div><button class="audio-btn-round" onclick="playAudio('Writing')">🔊</button></div>
+            </div>
+        </section>
+
+        <section id="tarefa-extra" class="extra-task">
+            <h3>Tarefa Extra ✍️</h3>
+            <h4>Translate the Text</h4>
+            <p>Read the text below about the importance of hobbies for a healthy lifestyle. Pay attention to the use of gerunds. Then, try to translate it into Portuguese.</p>
+            <p>
+                <span class="example-word">Maintaining</span> a good quality of life involves more than just eating well and exercising. It's also about finding activities that bring joy and reduce stress. <span class="example-word">Having</span> a hobby is an excellent way of achieving this balance. For many, <span class="example-word">painting</span> or <span class="example-word">drawing</span> offers a creative outlet. The act of <span class="example-word">creating</span> something new is incredibly rewarding.
+                <br><br>
+                Some people prefer more active pursuits. <span class="example-word">Hiking</span> in nature, for example, is not only good for the body but also for the mind. Being outdoors and <span class="example-word">breathing</span> fresh air can be very therapeutic. Similarly, <span class="example-word">swimming</span> is a fantastic full-body workout without putting too much strain on the joints.
+                <br><br>
+                For those interested in mental challenges, <span class="example-word">learning</span> a new language or <span class="example-word">playing</span> a musical instrument are wonderful options. <span class="example-word">Practicing</span> a new skill requires focus and dedication, which is great for brain health. I, for one, enjoy <span class="example-word">solving</span> complex puzzles in my free time. It's a great way of keeping my mind sharp.
+                <br><br>
+                It's important to stop <span class="example-word">making</span> excuses like "I don't have time." Everyone can benefit from <span class="example-word">setting</span> aside a small amount of time each week for a personal interest. <span class="example-word">Volunteering</span> is another fulfilling activity that gives a sense of purpose. By <span class="example-word">helping</span> others, we often end up helping ourselves.
+                <br><br>
+                In the end, it doesn't matter what you choose. The key is in the <span class="example-word">doing</span>. <span class="example-word">Finding</span> an activity you love and <span class="example-word">making</span> it a regular part of your life is a significant step towards a healthier and happier existence. Without <span class="example-word">exploring</span> different interests, you might never discover a passion that could enrich your life immensely.
+            </p>
+            <hr>
+            <h4>Quiz</h4>
+            <p>Besides eating well and exercising, what does the text say is important for maintaining a good quality of life?</p>
+            <ol class="quiz-options">
+                <li>Working longer hours.</li>
+                <li>Watching more documentaries.</li>
+                <li>Finding activities that bring joy and reduce stress.</li>
+                <li>Saving a lot of money.</li>
+                <li>Avoiding all challenges.</li>
+            </ol>
+            <details class="gabarito">
+                <summary>Ver Resposta do Quiz</summary>
+                <div class="gabarito-content">
+                    Resposta Correta: <strong>c) Finding activities that bring joy and reduce stress.</strong>
+                </div>
+            </details>
+        </section>
+
+        <section id="exercicios-finais">
+            <h3>Exercícios Práticos Finais 📝</h3>
+            <div class="secao-exercicios">
+                <h4>Parte 1: Complete com Gerúndios</h4>
+                <p>Complete as frases com o gerúndio do verbo entre parênteses.</p>
+                <ol class="exercise-list">
+                    <li><span class="fill-in-blank"></span> (learn) a new language is challenging.</li>
+                    <li>She is very good at <span class="fill-in-blank"></span> (organize) events.</li>
+                    <li>He suggested <span class="fill-in-blank"></span> (go) to the new gym.</li>
+                </ol>
+            </div>
+            <details class="gabarito">
+                <summary>Ver Gabarito dos Exercícios</summary>
+                <div class="gabarito-content">
+                    <p><strong>Parte 1:</strong> 1. Learning, 2. organizing, 3. going.</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="conclusao">
+            <h3>Conclusão 🥳</h3>
+            <p>Parabéns por concluir a Aula 31! Você aprendeu sobre os Gerúndios e como a forma "-ing" de um verbo pode funcionar como um substantivo. Isso permite que você fale sobre atividades, hobbies e interesses de forma muito natural.</p>
+            <p>Continue praticando o uso de gerúndios para descrever suas paixões e atividades diárias.</p>
+            <p>Na Aula 32: "Para Quê? – Infinitivos com "To"", vamos explorar outra forma verbal importante, o Infinitivo. Até lá!</p>
+        </section>
+
+        <!-- Botão Navegação Rodapé -->
+        <a href="https://espaco-liberdade.github.io/inglesipa/" class="nav-btn">⬅ Voltar ao Menu</a>
+    </div>
+
+    <!-- SCRIPT DE ÁUDIO OTIMIZADO -->
+    <script>
+        let voices = [];
+        
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
+        }
+
+        loadVoices();
+
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
+        function playAudio(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US'; // Define idioma base
+                utterance.rate = 0.85; // Velocidade um pouco mais lenta para aprendizado
+
+                if (voices.length === 0) voices = window.speechSynthesis.getVoices();
+
+                // Estratégia de seleção de voz para evitar "sotaque do sistema"
+                // 1. Tenta voz específica "Google US English" (Android) ou "Samantha" (iOS) ou "Premium"
+                // 2. Tenta qualquer voz 'en-US' que não seja localService (geralmente melhores)
+                // 3. Tenta qualquer voz 'en-US'
+                // 4. Tenta qualquer voz que comece com 'en'
+                
+                let targetVoice = voices.find(voice => 
+                    (voice.name.includes('Google') && voice.lang === 'en-US') || 
+                    (voice.name.includes('Premium') && voice.lang === 'en-US') || 
+                    (voice.name.includes('Samantha') && voice.lang === 'en-US')
+                );
+
+                if (!targetVoice) {
+                    targetVoice = voices.find(voice => voice.lang === 'en-US' && !voice.localService);
+                }
+
+                if (!targetVoice) {
+                    targetVoice = voices.find(voice => voice.lang === 'en-US');
+                }
+
+                if (!targetVoice) {
+                    targetVoice = voices.find(voice => voice.lang.startsWith('en'));
+                }
+
+                if (targetVoice) {
+                    utterance.voice = targetVoice;
+                    // Força o idioma da voz encontrada para garantir
+                    utterance.lang = targetVoice.lang; 
+                }
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Desculpe, seu navegador não suporta a reprodução de áudio.");
+            }
+        }
+    </script>
+</body>
+</html>
