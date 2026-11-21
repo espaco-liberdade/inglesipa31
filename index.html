@@ -3,617 +3,2242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aula 31: Verbos com "-ing" como Nomes – Gerúndios</title>
+    <title>Aula 31: Verbos com "-ing" como Nomes – Gerúndios | Método IPA</title>
+
+    <!-- Fontes do Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
-        /* --- RESET E BASE --- */
-        * { box-sizing: border-box; }
+        /* --- VARIÁVEIS E BASE --- */
+        :root {
+            --navy: #20344b;
+            --blue: #2980b9;
+            --teal: #16a085;
+            --purple: #8e44ad;
+            --amber: #d35400;
+            --gold-bg: #fffbeb;
+            --gold-border: #f59e0b;
+            --ink: #243140;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --bg: #edf2f7;
+            --paper: #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html.drawing-locked,
+        body.drawing-locked {
+            overflow: hidden !important;
+            overscroll-behavior: none !important;
+            touch-action: none !important;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
+            background-color: var(--bg);
+            color: var(--ink);
             -webkit-font-smoothing: antialiased;
+            padding: 20px 10px 120px 10px;
         }
 
         .container {
-            max-width: 800px;
+            position: relative;
+            max-width: 1060px;
             margin: 0 auto;
-            background: #fff;
-            padding: 20px 15px;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            background: var(--paper);
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 5px 24px rgba(32, 52, 75, 0.09);
+            overflow: visible;
+        }
+
+        /* --- CAMADA VETORIAL DE DESENHO (CANETA / FORMAS / CARIMBOS SOBRE O LIVRO) --- */
+        #drawLayer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 40;
+            pointer-events: none;
+            overflow: visible;
+            border-radius: 14px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #drawLayer.active-pen {
+            pointer-events: auto;
+            touch-action: none;
+            cursor: crosshair;
+        }
+
+        #drawLayer.active-stamp {
+            pointer-events: auto;
+            touch-action: none;
+            cursor: copy;
+        }
+
+        #drawLayer.active-eraser {
+            pointer-events: auto;
+            touch-action: none;
+            cursor: cell;
+        }
+
+        #drawLayer.hidden-strokes {
+            opacity: 0;
+        }
+
+        .stroke-highlighter {
+            mix-blend-mode: multiply;
         }
 
         /* --- TIPOGRAFIA --- */
         h1 {
-            color: #2c3e50;
+            color: var(--navy);
             text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
+            font-size: 1.85rem;
+            margin-bottom: 18px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #3498db;
+            border-bottom: 3px solid var(--blue);
             line-height: 1.3;
         }
-        
-        h2, h3, h4 { color: #2c3e50; margin-top: 25px; }
-        h3 { color: #34495e; font-size: 1.25rem; border-left: 4px solid #3498db; padding-left: 10px; }
-        h4 { color: #c0392b; font-size: 1.1rem; margin-bottom: 10px; }
-        
-        p, li { font-size: 1rem; margin-bottom: 10px; }
-        
-        .emoji-large { font-size: 1.5rem; }
-        .emoji-small { font-size: 1.2rem; }
 
-        /* --- DESTAQUES E CAIXAS --- */
-        .theme-intro, .nota-gramatical, .nota-dica, .secao-exercicios, .extra-task {
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            border-left: 5px solid transparent;
+        .subtitle {
+            display: block;
+            font-size: 0.98rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-top: 6px;
         }
 
-        .theme-intro { background-color: #eaf2f8; border-left-color: #3498db; }
-        .nota-gramatical { background-color: #ecf0f1; border-left-color: #f39c12; }
-        .nota-dica { background-color: #e8f6f3; border-left-color: #16a085; }
-        .extra-task { background-color: #f5eef8; border-left-color: #9b59b6; }
-        .secao-exercicios { background-color: #fff8e1; border-left-color: #f39c12; }
+        h2 {
+            color: var(--navy);
+            margin-top: 36px;
+            margin-bottom: 14px;
+            font-size: 1.45rem;
+            border-bottom: 2px solid #ebf5fb;
+            padding-bottom: 8px;
+            page-break-after: avoid;
+        }
 
-        .example-word { color: #2980b9; font-weight: 700; }
-        
-        /* --- ESTILOS DE IPA E PRONÚNCIA --- */
+        h3 {
+            color: #1f618d;
+            font-size: 1.22rem;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--blue);
+            padding-left: 12px;
+            page-break-after: avoid;
+        }
+
+        h4 {
+            color: #c0392b;
+            font-size: 1.05rem;
+            margin: 16px 0 10px 0;
+        }
+
+        p, li { font-size: 0.98rem; margin-bottom: 10px; color: #374151; }
+        ul, ol { padding-left: 22px; margin-bottom: 14px; }
+
+        .emoji-large { font-size: 1.35rem; }
+        .emoji-small { font-size: 1.15rem; }
+
+        /* --- BARRAS DE AÇÃO (TOPO, FERRAMENTAS E RODAPÉ) --- */
+        .top-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            position: relative;
+            z-index: 45;
+        }
+
+        .nav-btn, .pdf-btn {
+            flex: 1;
+            min-width: 220px;
+            border: none;
+            border-radius: 8px;
+            padding: 13px 16px;
+            font-weight: 700;
+            font-size: 0.96rem;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-btn:hover, .pdf-btn:hover { opacity: 0.92; }
+        .nav-btn:active, .pdf-btn:active { transform: scale(0.99); }
+        .nav-btn { background-color: var(--navy); color: #fff; }
+        .pdf-btn { background-color: var(--teal); color: #fff; }
+
+        .notes-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 16px 0 22px 0;
+            position: relative;
+            z-index: 45;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .notes-toolbar-status {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: auto;
+        }
+
+        .toolbar-btn {
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            color: var(--navy);
+            border-radius: 7px;
+            padding: 7px 12px;
+            font-size: 0.83rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.15s;
+        }
+        .toolbar-btn:hover { background: #ebf5fb; border-color: var(--blue); color: var(--blue); }
+        .toolbar-btn.danger:hover { background: #fef2f2; border-color: #ef4444; color: #dc2626; }
+        .toolbar-btn.pen-cta {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            border-color: #1d4ed8;
+        }
+        .toolbar-btn.pen-cta:hover { background: #1e40af; color: #fff; }
+
+        /* --- BALÃO FLUTUANTE INTELIGENTE (ACIONA CANETA + TRAVA TELA / DESTRAVA TELA) --- */
+        .pen-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 120;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 999px;
+            padding: 13px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.94rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.42);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.15s, background 0.2s, top 0.2s, bottom 0.2s;
+            touch-action: manipulation;
+        }
+        .pen-fab:hover { transform: translateY(-2px); }
+
+        .pen-fab.is-locked-mode {
+            top: 14px;
+            bottom: auto;
+            right: 14px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.48);
+            border-color: #a7f3d0;
+            animation: gentlePulse 2.2s infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45); }
+            50% { box-shadow: 0 6px 28px rgba(16, 185, 129, 0.78); }
+        }
+
+        /* --- PAINEL FLUTUANTE DE FERRAMENTAS (CANETA, FORMAS E CARIMBOS) --- */
+        .pen-dock {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 110;
+            background: rgba(15, 23, 42, 0.96);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 10px 12px;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.38);
+            display: none;
+            flex-direction: column;
+            gap: 7px;
+            width: min(97vw, 860px);
+            backdrop-filter: blur(10px);
+            touch-action: manipulation;
+        }
+        .pen-dock.open { display: flex; }
+
+        .pen-dock-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .pen-mode-banner {
+            font-size: 0.78rem;
+            color: #fde68a;
+            text-align: center;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .dock-btn {
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.09);
+            color: #f8fafc;
+            border-radius: 8px;
+            padding: 7px 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .dock-btn:hover { background: rgba(255,255,255,0.2); }
+        .dock-btn.active {
+            background: #2563eb;
+            border-color: #60a5fa;
+            color: #fff;
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.38);
+        }
+        .dock-btn.active-hl {
+            background: #ca8a04;
+            border-color: #fde047;
+            color: #fff;
+        }
+        .dock-btn.active-shape {
+            background: #7c3aed;
+            border-color: #c4b5fd;
+            color: #fff;
+            box-shadow: 0 0 0 2px rgba(196, 181, 253, 0.35);
+        }
+        .dock-btn.active-stamp {
+            background: #0d9488;
+            border-color: #5eead4;
+            color: #fff;
+            box-shadow: 0 0 0 2px rgba(94, 234, 212, 0.35);
+        }
+        .dock-btn.active-er {
+            background: #dc2626;
+            border-color: #fca5a5;
+            color: #fff;
+        }
+        .dock-btn.exit-btn {
+            background: #10b981;
+            border-color: #6ee7b7;
+            color: #052e16;
+        }
+        .dock-btn.exit-btn:hover { background: #34d399; }
+
+        .color-swatch {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.45);
+            cursor: pointer;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+        .color-swatch:hover { transform: scale(1.12); }
+        .color-swatch.selected {
+            border: 3px solid #fff;
+            transform: scale(1.18);
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+
+        .size-pill {
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.08);
+            color: #e2e8f0;
+            border-radius: 6px;
+            padding: 5px 8px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .size-pill.selected { background: #fff; color: #0f172a; }
+
+        .dock-divider {
+            width: 1px;
+            height: 22px;
+            background: rgba(255,255,255,0.2);
+            margin: 0 2px;
+        }
+
+        /* CONFIRMAÇÃO INLINE (SEM ALERT/CONFIRM) */
+        .inline-confirm {
+            display: none;
+            width: 100%;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-top: 6px;
+            font-size: 0.88rem;
+            color: #991b1b;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .inline-confirm.show { display: flex; }
+        .confirm-yes {
+            background: #dc2626;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.83rem;
+        }
+        .confirm-no {
+            background: #fff;
+            color: #374151;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.83rem;
+        }
+
+        .toast-banner {
+            display: none;
+            background: #e8f8f5;
+            border: 1px solid #a3e4d7;
+            color: #0e6251;
+            padding: 9px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin: 10px 0;
+            text-align: center;
+            position: relative;
+            z-index: 45;
+        }
+        .toast-banner.show { display: block; }
+
+        /* --- CAIXAS DE DESTAQUE --- */
+        .theme-intro, .nota-gramatical, .nota-dica, .secao-exercicios, .extra-task {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid transparent;
+            page-break-inside: avoid;
+        }
+
+        .theme-intro { background-color: #ebf5fb; border-left-color: var(--blue); }
+        .nota-gramatical { background-color: #fef9e7; border-left-color: #f39c12; }
+        .nota-dica { background-color: #e8f8f5; border-left-color: var(--teal); }
+        .extra-task { background-color: #f5eef8; border-left-color: var(--purple); }
+        .secao-exercicios { background-color: #fff8eb; border-left-color: var(--amber); }
+
+        .example-word {
+            color: var(--blue);
+            font-weight: 700;
+            background: #eaf4fc;
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+            margin: 14px 0 18px 0;
+        }
+
+        .role-card {
+            background: #f8fafc;
+            border: 1px solid var(--line);
+            border-top: 4px solid var(--blue);
+            border-radius: 10px;
+            padding: 14px 16px;
+            page-break-inside: avoid;
+        }
+        .role-card.verb { border-top-color: var(--teal); }
+        .role-card.prep { border-top-color: var(--purple); }
+
+        .role-badge {
+            display: inline-block;
+            font-size: 0.74rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .role-card.verb .role-badge { background: #ccfbf1; color: #0f766e; }
+        .role-card.prep .role-badge { background: #f3e8ff; color: #6b21a8; }
+
+        .context-pill {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            padding: 2px 7px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .context-pill.subject { background: #dbeafe; color: #1e40af; }
+        .context-pill.verb { background: #d1fae5; color: #065f46; }
+        .context-pill.prep { background: #f3e8ff; color: #6b21a8; }
+
+        /* --- BLOCO DE OBSERVAÇÕES DO ALUNO (AUTO-SAVE) --- */
+        .obs-box {
+            margin: 18px 0 28px 0;
+            background: var(--gold-bg);
+            border: 1px solid #fde68a;
+            border-left: 5px solid var(--gold-border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            page-break-inside: avoid;
+        }
+
+        .obs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .obs-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #92400e;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .obs-save-badge {
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #0f766e;
+            background: #ccfbf1;
+            padding: 2px 8px;
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .obs-save-badge.visible { opacity: 1; }
+
+        .obs-textarea {
+            width: 100%;
+            min-height: 76px;
+            resize: vertical;
+            padding: 10px 12px;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #1f2937;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.93rem;
+            line-height: 1.5;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .obs-textarea:focus {
+            outline: none;
+            border-color: #d97706;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+        }
+
+        .obs-textarea::placeholder { color: #9ca3af; font-style: italic; }
+
+        .obs-print-mirror {
+            display: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 9.2pt;
+            color: #1f2937;
+            background: #ffffff;
+            border: 1px dashed #d97706;
+            border-radius: 6px;
+            padding: 8px 10px;
+            line-height: 1.45;
+        }
+
+        /* --- IPA, FONÉTICA E BOTÕES DE ÁUDIO --- */
         code, .ipa-symbol {
             font-family: 'Roboto Mono', monospace;
-            background-color: #f1f1f1;
-            padding: 2px 4px;
+            background-color: #f1f5f9;
+            padding: 2px 6px;
             border-radius: 4px;
-            color: #e74c3c;
-            font-size: 0.9em;
+            color: #c0392b;
+            font-size: 0.85rem;
+            display: inline-block;
         }
-        
+
         .character-portuguese-phonetics {
             display: block;
-            color: #27ae60;
+            color: #15803d;
             font-style: italic;
-            font-size: 0.85em;
-            margin-top: 2px;
+            font-weight: 600;
+            font-size: 0.86rem;
+            margin-top: 3px;
         }
 
-        /* --- BOTÃO DE NAVEGAÇÃO --- */
-        .nav-btn {
-            display: block;
-            width: 100%;
-            background-color: #34495e;
-            color: white;
-            text-align: center;
-            padding: 12px;
-            margin: 10px 0;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            border: none;
+        .audio-btn-inline {
+            background: #eef6fc;
+            border: 1px solid #cce3f6;
+            border-radius: 50%;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 0.96rem;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            margin-left: 6px;
+            transition: transform 0.1s, background-color 0.2s;
         }
-        .nav-btn:hover { background-color: #2c3e50; }
+        .audio-btn-inline:hover { background: var(--blue); color: #fff; }
+        .audio-btn-inline:active { transform: scale(0.9); }
 
-        /* --- TABELAS OTIMIZADAS PARA MOBILE --- */
+        .audio-btn-pill {
+            background: #ebf5fb;
+            border: 1px solid #93c5fd;
+            color: #1d4ed8;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.15s;
+        }
+        .audio-btn-pill:hover { background: var(--blue); color: #fff; }
+        .audio-btn-pill.stop { background: #dc2626; border-color: #dc2626; color: #fff; }
+
+        /* --- BARRA DE PESQUISA --- */
+        .search-box { margin: 14px 0 18px 0; }
+        .search-input {
+            width: 100%;
+            padding: 11px 15px;
+            font-size: 0.96rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { outline: none; border-color: var(--blue); }
+
+        /* --- TABELAS --- */
         .table-responsive-wrapper {
             width: 100%;
             overflow-x: auto;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #eee;
+            -webkit-overflow-scrolling: touch;
+            margin: 14px 0 22px 0;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 100%; 
+            min-width: 660px;
         }
 
         th {
-            background-color: #34495e;
+            background-color: var(--navy);
             color: white;
-            padding: 10px;
-            font-size: 0.9rem;
+            padding: 12px 14px;
+            font-size: 0.88rem;
             text-align: left;
+            font-weight: 600;
         }
 
         td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #eee;
+            padding: 13px 14px;
+            border-bottom: 1px solid #eef2f6;
             vertical-align: top;
+            font-size: 0.94rem;
         }
 
-        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:nth-child(even) { background-color: #fafcfe; }
+        tr:hover { background-color: #f0f7ff; }
 
-        .details-cell {
-            font-size: 0.9rem;
-            color: #555;
+        .num-badge {
+            display: inline-block;
+            background: var(--blue);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 12px;
+            margin-right: 6px;
         }
+
+        .sentence-en {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+        .sentence-en b {
+            color: #1d4ed8;
+            background: #eff6ff;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
         .details-translation {
             display: block;
-            margin-top: 6px;
-            padding-top: 6px;
-            border-top: 1px dashed #ddd;
-            color: #444;
-            font-weight: 500;
+            margin-top: 5px;
+            color: #1f2937;
+            font-weight: 600;
+            font-size: 0.93rem;
         }
 
-        /* --- BOTÃO DE ÁUDIO GERAL --- */
-        .audio-btn-inline {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            vertical-align: middle;
-            margin-left: 5px;
-            padding: 0 5px;
-        }
-        
-        /* --- VOCABULÁRIO: GRID DE CARDS (Mobile First) --- */
+        /* --- GRID DE VOCABULÁRIO (32 CARDS) --- */
         .vocab-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        @media (min-width: 600px) {
-            .vocab-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 12px;
+            margin: 16px 0 20px 0;
         }
 
         .vocab-item {
-            background: white;
-            border: 1px solid #e0e0e0;
+            background: #fff;
+            border: 1px solid var(--line);
             border-radius: 10px;
-            padding: 15px;
+            padding: 13px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            transition: transform 0.2s;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.15s, border-color 0.15s;
+            page-break-inside: avoid;
         }
-        
-        .vocab-item:active { transform: scale(0.98); background-color: #fdfdfd; }
+        .vocab-item:hover { border-color: var(--blue); transform: translateY(-1px); }
 
-        .vocab-text {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .vocab-en {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .vocab-ipa {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.85rem;
-            color: #e67e22;
-        }
-
-        .vocab-pt {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
+        .vocab-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+        .vocab-en { font-size: 1.04rem; font-weight: 700; color: var(--navy); }
+        .vocab-ipa { font-family: 'Roboto Mono', monospace; font-size: 0.79rem; color: #c0392b; }
+        .vocab-phon { font-size: 0.8rem; color: #15803d; font-style: italic; font-weight: 600; }
+        .vocab-pt { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.4px; margin-top: 2px; }
 
         .audio-btn-round {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #3498db;
-            color: white;
+            background-color: var(--blue);
+            color: #fff;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             flex-shrink: 0;
-            margin-left: 10px;
-            box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 2px 6px rgba(41, 128, 185, 0.25);
+            transition: background-color 0.2s, transform 0.1s;
         }
-        
-        .audio-btn-round:active { background-color: #2980b9; }
+        .audio-btn-round:hover { background-color: #1f618d; }
+        .audio-btn-round:active { transform: scale(0.93); }
 
-        /* --- GABARITO E EXERCÍCIOS --- */
-        .fill-in-blank {
-            display: inline-block;
-            min-width: 60px;
-            border-bottom: 2px solid #3498db;
-            text-align: center;
-            color: #3498db;
-            font-weight: bold;
-            padding: 0 5px;
+        /* --- HISTÓRIA E QUIZ INTERATIVO --- */
+        .story-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e9d5ff;
+            margin: 14px 0 20px 0;
         }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f3e8ff;
+        }
+
+        .quiz-container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 14px;
+            page-break-inside: avoid;
+        }
+
+        .quiz-question { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid #eee; }
+        .quiz-question:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .quiz-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 11px 14px;
+            margin: 7px 0;
+            border: 2px solid #e2e8f0;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            font-size: 0.94rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+        }
+        .quiz-btn:hover:not(:disabled) { border-color: var(--purple); background-color: #faf5ff; }
+        .quiz-btn.correct { background-color: #dcfce7; border-color: #16a34a; color: #14532d; font-weight: 700; }
+        .quiz-btn.incorrect { background-color: #fee2e2; border-color: #dc2626; color: #7f1d1d; }
+        .quiz-feedback {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* --- EXERCÍCIOS INTERATIVOS --- */
+        .exercise-input {
+            border: none;
+            border-bottom: 2px solid var(--blue);
+            background: #ffffff;
+            padding: 3px 8px;
+            margin: 0 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1d4ed8;
+            min-width: 130px;
+            border-radius: 4px 4px 0 0;
+        }
+        .exercise-input:focus { outline: none; background: #eff6ff; border-color: var(--teal); }
 
         details.gabarito {
-            margin-top: 20px;
-            background: #f8f9fa;
-            border: 1px solid #ddd;
+            margin-top: 16px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
-            padding: 10px;
+            overflow: hidden;
         }
-        
         details.gabarito summary {
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            color: #2c3e50;
-            padding: 10px;
+            color: var(--navy);
+            padding: 13px 16px;
             list-style: none;
+            background: #f1f5f9;
         }
-        
-        details.gabarito summary::after { content: " 👇"; }
+        details.gabarito summary::after { content: " 👇"; float: right; }
         details.gabarito[open] summary::after { content: " 👆"; }
-
         .gabarito-content {
-            padding: 15px;
-            border-top: 1px solid #ddd;
-            color: #555;
+            padding: 14px 16px;
+            border-top: 1px solid #cbd5e1;
+            background: #fff;
+            font-size: 0.92rem;
+        }
+        .gabarito-content p { margin-bottom: 8px; }
+
+        /* --- RESPONSIVIDADE MOBILE --- */
+        @media (max-width: 720px) {
+            body { padding: 10px 6px 140px 6px; }
+            .container { padding: 16px 14px; border-radius: 10px; }
+            h1 { font-size: 1.4rem; }
+            h2 { font-size: 1.25rem; }
+            h3 { font-size: 1.1rem; }
+            table { min-width: 100%; }
+            .sentence-table thead { display: none; }
+            .sentence-table tr {
+                display: block;
+                border-bottom: 2px solid #e2e8f0;
+                padding: 10px 0;
+            }
+            .sentence-table td {
+                display: block;
+                width: 100%;
+                border: none;
+                padding: 5px 10px;
+            }
+            .pen-fab { bottom: 14px; right: 14px; padding: 10px 15px; font-size: 0.85rem; }
+            .pen-dock { padding: 8px 8px; gap: 6px; }
+            .dock-btn { padding: 6px 8px; font-size: 0.74rem; }
         }
 
-        .quiz-options {
-            list-style-type: lower-alpha;
-            padding-left: 20px;
+        /* --- IMPRESSÃO A4 EM PDF (COM AS OBSERVAÇÕES, FORMAS E CARIMBOS!) --- */
+        @page { size: A4 portrait; margin: 10mm; }
+        @media print {
+            html, body { overflow: visible !important; background-color: #fff; padding: 0; font-size: 9.5pt; }
+            .container { box-shadow: none; max-width: 100%; padding: 0; border-radius: 0; }
+            .top-actions, .notes-toolbar, .pen-fab, .pen-dock, .audio-btn-inline, .audio-btn-round, .audio-btn-pill, .search-box, .obs-save-badge, .toast-banner {
+                display: none !important;
+            }
+            .obs-textarea { display: none !important; }
+            .obs-box.empty-note { display: none !important; }
+            .obs-box.has-note { display: block !important; background: #fffbeb !important; border: 1px solid #f59e0b !important; padding: 8px 10px; margin: 8px 0 14px 0; }
+            .obs-box.has-note .obs-print-mirror { display: block !important; }
+            .vocab-item, tr, .theme-intro, .nota-dica, .nota-gramatical, .extra-task, .secao-exercicios, .quiz-container, .role-card {
+                page-break-inside: avoid;
+            }
+            .vocab-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .vocab-item { padding: 7px 9px; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         }
     </style>
 </head>
 <body>
+    <!-- BALÃO FLUTUANTE INTELIGENTE: ATIVA A CANETA (TRAVANDO A TELA) / DESTRAVA A TELA -->
+    <button id="penFab" class="pen-fab" onclick="togglePenMode()" title="Ativar ou sair do modo de desenho (trava a tela para não rolar no celular/tablet)">
+        ✏️ Caneta / Formas
+    </button>
 
-    <div class="container">
-        <!-- Botão Navegação Topo -->
-        <a href="https://espaco-liberdade.github.io/inglesipa/" class="nav-btn">⬅ Voltar ao Menu</a>
+    <!-- PAINEL FLUTUANTE COMPLETO: CANETA, MARCA-TEXTO, FORMAS GEOMÉTRICAS E CARIMBOS -->
+    <div id="penDock" class="pen-dock" role="toolbar" aria-label="Ferramentas de desenho, formas e carimbos sobre a aula">
+        <div id="penModeBanner" class="pen-mode-banner">
+            🔒 Tela TRAVADA para desenhar — Sem rolagem acidental no celular/tablet! Clique em "🔓 Destravar Tela" (ou ESC) para voltar a rolar.
+        </div>
 
-        <h1>Aula 31: Verbos com "-ing" como Nomes – Gerúndios <span class="emoji-large">🏃‍♂️🎨</span><br><span style="font-size: 0.8em; font-weight: normal;">(Verbs with "-ing" as Nouns – Gerunds)</span></h1>
+        <!-- LINHA 1: ESCRITA, FORMAS GEOMÉTRICAS E CARIMBOS PRONTOS -->
+        <div class="pen-dock-row">
+            <button id="tool-pen" class="dock-btn active" onclick="setDrawTool('pen')" title="Desenho livre">✏️ Caneta</button>
+            <button id="tool-highlighter" class="dock-btn" onclick="setDrawTool('highlighter')" title="Marca-texto translúcido">🖍️ Grifar</button>
+            <span class="dock-divider"></span>
+            <button id="tool-rect" class="dock-btn" onclick="setDrawTool('rect')" title="Arraste para desenhar um retângulo">▭ Retângulo</button>
+            <button id="tool-ellipse" class="dock-btn" onclick="setDrawTool('ellipse')" title="Arraste para circular uma palavra ou frase">◯ Círculo</button>
+            <button id="tool-arrow" class="dock-btn" onclick="setDrawTool('arrow')" title="Arraste para apontar com uma seta fina">↗ Seta</button>
+            <span class="dock-divider"></span>
+            <button id="tool-stamp-question" class="dock-btn" onclick="setDrawTool('stamp-question')" title="Toque no texto para carimbar uma interrogação">❓</button>
+            <button id="tool-stamp-x" class="dock-btn" onclick="setDrawTool('stamp-x')" title="Toque no texto para carimbar um X">✖️</button>
+            <button id="tool-stamp-check" class="dock-btn" onclick="setDrawTool('stamp-check')" title="Toque no texto para carimbar um visto de correto">✔️</button>
+            <span class="dock-divider"></span>
+            <button id="tool-eraser" class="dock-btn" onclick="setDrawTool('eraser')" title="Toque ou arraste sobre qualquer desenho/forma para apagar">🧹 Borracha</button>
+        </div>
+
+        <!-- LINHA 2: CORES, ESPESSURA E AÇÕES -->
+        <div class="pen-dock-row">
+            <button class="color-swatch selected" data-color="#e11d48" style="background:#e11d48;" onclick="setDrawColor('#e11d48', this)" title="Vermelho"></button>
+            <button class="color-swatch" data-color="#2563eb" style="background:#2563eb;" onclick="setDrawColor('#2563eb', this)" title="Azul"></button>
+            <button class="color-swatch" data-color="#16a34a" style="background:#16a34a;" onclick="setDrawColor('#16a34a', this)" title="Verde"></button>
+            <button class="color-swatch" data-color="#facc15" style="background:#facc15;" onclick="setDrawColor('#facc15', this)" title="Amarelo"></button>
+            <button class="color-swatch" data-color="#9333ea" style="background:#9333ea;" onclick="setDrawColor('#9333ea', this)" title="Roxo"></button>
+            <button class="color-swatch" data-color="#1e293b" style="background:#1e293b;" onclick="setDrawColor('#1e293b', this)" title="Preto"></button>
+
+            <span class="dock-divider"></span>
+
+            <button class="size-pill" data-size="2.5" onclick="setPenSize(2.5, this)">Fina</button>
+            <button class="size-pill selected" data-size="4" onclick="setPenSize(4, this)">Média</button>
+            <button class="size-pill" data-size="7" onclick="setPenSize(7, this)">Grossa</button>
+
+            <span class="dock-divider"></span>
+
+            <button class="dock-btn" onclick="undoLastStroke()" title="Desfazer último traço ou forma">↩️ Desfazer</button>
+            <button id="toggleVisBtn" class="dock-btn" onclick="toggleDrawingsVisibility()">👁️ Ocultar</button>
+            <button class="dock-btn" onclick="showClearDrawConfirm()">🗑️ Limpar</button>
+            <button class="dock-btn exit-btn" onclick="closePenDock()">🔓 Destravar Tela</button>
+        </div>
+
+        <div id="clearDrawConfirm" class="inline-confirm" style="margin-top:2px;">
+            <span><strong>Apagar todos os desenhos e formas?</strong> Suas observações escritas serão mantidas.</span>
+            <div style="display:flex; gap:8px;">
+                <button class="confirm-yes" onclick="confirmClearDrawings()">Sim, apagar desenhos</button>
+                <button class="confirm-no" onclick="hideClearDrawConfirm()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="lessonBook">
+        <!-- CAMADA SVG TRANSPARENTE PARA DESENHO, FORMAS E CARIMBOS SOBRE O LIVRO -->
+        <svg id="drawLayer" xmlns="http://www.w3.org/2000/svg"></svg>
+
+        <!-- BOTÕES SUPERIORES: MENU PRINCIPAL + PDF -->
+        <div class="top-actions">
+            <button class="nav-btn" onclick="location.href='https://espaco-liberdade.github.io/inglesipa/'">← Voltar ao Menu Principal</button>
+            <button class="pdf-btn" onclick="printWithNotes()">📄 Salvar como PDF (A4) com Marcações</button>
+        </div>
+
+        <h1>
+            Aula 31: Verbos com "-ing" como Nomes – Gerúndios <span class="emoji-large">🏃‍♂️🎨</span>
+            <span class="subtitle">(Verbs with "-ing" as Nouns – Gerunds | Método IPA)</span>
+        </h1>
 
         <div class="theme-intro">
-            <p>Bem-vindo(a) à Aula 31! <span class="emoji-small">✨</span></p>
-            <p>Hoje, vamos explorar uma forma muito versátil do verbo em inglês: o <strong>Gerúndio (Gerund)</strong>. Aprenderemos como a forma "-ing" de um verbo pode funcionar como um substantivo, permitindo-nos falar sobre <strong>hobbies, interesses, atividades que gostamos ou não</strong>, e temas como <strong>saúde, exercícios e qualidade de vida</strong>. Prepare-se para nomear suas ações! <span class="emoji-small">🏊‍♂️🧘‍♀️🥗</span></p>
+            <p><strong>Bem-vindo(a) à Aula 31!</strong> <span class="emoji-small">✨</span></p>
+            <p>Hoje, vamos explorar uma forma muito versátil do verbo em inglês: o <strong>Gerúndio (Gerund)</strong>. Aprenderemos como a forma <strong>"-ing"</strong> de um verbo pode funcionar como um <strong>substantivo</strong>, permitindo-nos falar sobre <strong>hobbies, interesses, atividades que gostamos ou não</strong>, e temas como <strong>saúde, exercícios e qualidade de vida</strong>. Prepare-se para nomear suas ações! <span class="emoji-small">🏊‍♂️🧘‍♀️🥗</span></p>
+            <p style="margin-bottom: 0;"><strong>✏️ Livro Interativo Completo:</strong> Toque no balão <strong>✏️ Caneta / Formas</strong> para <strong>travar a tela</strong> (sem rolar no celular/tablet!) e usar caneta, marca-texto, <strong>retângulo, círculo, seta fina</strong> e carimbos prontos (<strong>❓, ✖️, ✔️</strong>). Quando terminar, toque em <strong>🔓 Destravar Tela</strong> para voltar a rolar normalmente!</p>
         </div>
+
+        <!-- BARRA DE GERENCIAMENTO DAS OBSERVAÇÕES E CANETA -->
+        <div class="notes-toolbar">
+            <div class="notes-toolbar-status">
+                <span>📝</span>
+                <span id="notesSummary">Salvo automaticamente (0/6 observações · 0 marcações)</span>
+            </div>
+            <button class="toolbar-btn pen-cta" onclick="openPenDock('pen')">✏️ Caneta & Formas</button>
+            <button class="toolbar-btn" onclick="openPenDock('highlighter')">🖍️ Marca-texto</button>
+            <button class="toolbar-btn" onclick="exportNotesTxt()">💾 Exportar Notas (.txt)</button>
+            <button class="toolbar-btn danger" onclick="showClearConfirm()">🗑️ Limpar Tudo</button>
+
+            <div id="clearConfirmBox" class="inline-confirm">
+                <span><strong>Tem certeza?</strong> Isso apagará todas as suas observações escritas, respostas dos exercícios e marcações da Aula 31.</span>
+                <div style="display:flex; gap:8px;">
+                    <button class="confirm-yes" onclick="confirmClearAll()">Sim, apagar tudo</button>
+                    <button class="confirm-no" onclick="hideClearConfirm()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="statusToast" class="toast-banner"></div>
 
         <h2>31. Gerúndios: Ações como Substantivos</h2>
 
-        <section id="gerund-intro">
+        <!-- ==================== SEÇÃO 31.1: O QUE É UM GERÚNDIO ==================== -->
+        <section id="sec-31-1">
             <h3>31.1 O Que é um Gerúndio? <span class="emoji-small">🧩</span></h3>
-            <p>O <strong>Gerúndio (Gerund)</strong> em inglês é a forma do verbo que termina em <strong>-ing</strong> (ex: reading, swimming) quando ela é usada como um <strong>substantivo</strong>. Isso significa que o gerúndio pode ser o sujeito de uma frase, o objeto de um verbo, ou o objeto de uma preposição.</p>
-            <ul>
-                <li><span class="example-word">Reading</span> is my favorite hobby. (Ler é meu hobby favorito.) - <em>"Reading" é o sujeito.</em></li>
-                <li>I enjoy <span class="example-word">swimming</span>. (Eu gosto de natação.) - <em>"Swimming" é o objeto.</em></li>
-                <li>She is good at <span class="example-word">painting</span>. (Ela é boa em pintura.) - <em>"Painting" é o objeto da preposição "at".</em></li>
-            </ul>
+            <p>O <strong>Gerúndio (Gerund)</strong> em inglês é a forma do verbo que termina em <strong>-ing</strong> (ex: <em>reading, swimming</em>) quando ela é usada como um <strong>substantivo</strong>. Isso significa que o gerúndio pode exercer três papéis fundamentais na frase:</p>
+
+            <div class="roles-grid">
+                <div class="role-card">
+                    <span class="role-badge">1. Como Sujeito da Frase</span>
+                    <p style="margin-bottom:4px;"><strong><span class="example-word">Reading</span> is my favorite hobby.</strong> <button class="audio-btn-inline" onclick="playAudio('Reading is my favorite hobby.')" title="Ouvir frase">🔊</button></p>
+                    <span class="details-translation">Ler é meu hobby favorito.</span>
+                    <p style="font-size:0.84rem; color:var(--muted); margin-top:4px; margin-bottom:0;"><em>"Reading"</em> atua como o sujeito (sempre no singular: <em>Reading <strong>is</strong></em>).</p>
+                </div>
+
+                <div class="role-card verb">
+                    <span class="role-badge">2. Como Objeto de um Verbo</span>
+                    <p style="margin-bottom:4px;"><strong>I enjoy <span class="example-word">swimming</span>.</strong> <button class="audio-btn-inline" onclick="playAudio('I enjoy swimming.')" title="Ouvir frase">🔊</button></p>
+                    <span class="details-translation">Eu gosto de natação (nadar).</span>
+                    <p style="font-size:0.84rem; color:var(--muted); margin-top:4px; margin-bottom:0;"><em>"Swimming"</em> completa o verbo <em>enjoy</em> (que exige <strong>-ing</strong>).</p>
+                </div>
+
+                <div class="role-card prep">
+                    <span class="role-badge">3. Após uma Preposição</span>
+                    <p style="margin-bottom:4px;"><strong>She is good at <span class="example-word">painting</span>.</strong> <button class="audio-btn-inline" onclick="playAudio('She is good at painting.')" title="Ouvir frase">🔊</button></p>
+                    <span class="details-translation">Ela é boa em pintura (pintar).</span>
+                    <p style="font-size:0.84rem; color:var(--muted); margin-top:4px; margin-bottom:0;"><em>"Painting"</em> é o objeto da preposição <strong>at</strong> (toda preposição pede <strong>-ing</strong>!).</p>
+                </div>
+            </div>
+
+            <div class="nota-dica">
+                <h4>💡 Regra de Ouro do Gerúndio (Sem Exceção!)</h4>
+                <p style="margin-bottom:0;">Sempre que um verbo vier imediatamente após uma <strong>preposição</strong> (<em>in, at, for, by, about, of, on, before, after, without, instead of</em>), ele ganha obrigatoriamente <strong>-ing</strong>! Ex: <em>Thank you <strong>for helping</strong> me</em> (Obrigado por me ajudar).</p>
+            </div>
+
+            <div class="obs-box empty-note" data-obs-wrapper="obs_31_1">
+                <div class="obs-header">
+                    <label class="obs-title" for="obs_31_1">📝 Minhas Observações – Seção 31.1 (O Que é um Gerúndio)</label>
+                    <span class="obs-save-badge" id="badge_obs_31_1">✓ Salvo no navegador</span>
+                </div>
+                <textarea id="obs_31_1" class="obs-textarea" data-section-name="31.1 O Que é um Gerúndio" placeholder="Anote os 3 usos do gerúndio ou crie uma frase sobre o seu hobby favorito..."></textarea>
+                <div class="obs-print-mirror" id="mirror_obs_31_1"></div>
+            </div>
         </section>
 
-        <section id="gerund-practice-tables">
-            <h3>31.2 Prática: Gerúndios em Ação</h3>
-            <p>Vamos ver como os gerúndios são usados em diferentes contextos, especialmente ao falar sobre saúde, hobbies e bem-estar.</p>
-            
+        <!-- ==================== SEÇÃO 31.2: 30 FRASES PRÁTICAS ==================== -->
+        <section id="sec-31-2">
+            <h3>31.2 Prática: Gerúndios em Ação (30 Exemplos com Áudio) <span class="emoji-small">🏃‍♂️🔊</span></h3>
+            <p>Veja todos os <strong>30 exemplos completos</strong> mostrando como os gerúndios são usados como <strong>sujeito</strong>, <strong>após verbos</strong> e <strong>após preposições</strong> — especialmente ao falar sobre saúde, hobbies e bem-estar:</p>
+
+            <div class="search-box">
+                <input type="text" id="sentenceSearch" class="search-input" placeholder="🔍 Filtrar nas 30 frases (ex: Sujeito, Preposição, enjoy, avoid, yoga, tennis, by, before, instead of)..." onkeyup="filterSentences()">
+            </div>
+
             <div class="table-responsive-wrapper">
-                <table>
+                <table class="sentence-table">
                     <thead>
                         <tr>
-                            <th style="width: 45%;">Frase em Inglês (Gerúndio)</th>
-                            <th>Detalhes (IPA / Tradução)</th>
+                            <th style="width: 45%;">Função + Frase em Inglês (Áudio)</th>
+                            <th style="width: 55%;">Pronúncia Completa (IPA + Simplificada) e Tradução</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Gerúndio como Sujeito -->
-                        <tr>
-                            <td><span class="example-word">Exercising</span> regularly is crucial for a long life. <button class="audio-btn-inline" onclick="playAudio('Exercising regularly is crucial for a long life.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ˈeksərsaɪzɪŋ ˈreɡjələrli.../</span><br><span class="character-portuguese-phonetics">(ÉK-sãr-sai-zin RÉ-guiu-lãr-li...)</span><span class="details-translation">Exercitar-se regularmente é crucial para uma vida longa. (Sujeito)</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="example-word">Eating</span> a balanced diet prevents many diseases. <button class="audio-btn-inline" onclick="playAudio('Eating a balanced diet prevents many diseases.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ˈiːtɪŋ ə ˈbælənst ˈdaɪət.../</span><br><span class="character-portuguese-phonetics">(ÍI-tin ã BÉ-lãnst DÁI-ãt...)</span><span class="details-translation">Comer uma dieta balanceada previne muitas doenças. (Sujeito)</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="example-word">Learning</span> new things keeps the mind sharp during aging. <button class="audio-btn-inline" onclick="playAudio('Learning new things keeps the mind sharp during aging.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ˈlɜːrnɪŋ nuː θɪŋz kiːps.../</span><br><span class="character-portuguese-phonetics">(LÃR-nin núu THÊNGZ kíips...)</span><span class="details-translation">Aprender coisas novas mantém a mente afiada durante o envelhecimento. (Sujeito)</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="example-word">Traveling</span> can broaden your horizons. <button class="audio-btn-inline" onclick="playAudio('Traveling can broaden your horizons.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ˈtrævlɪŋ kæn ˈbrɔːdn jɔːr həˈraɪznz/</span><br><span class="character-portuguese-phonetics">(TRÉ-võ-lin kén BRÓ-dãn iór rõ-RÁI-zãnz)</span><span class="details-translation">Viajar pode ampliar seus horizontes. (Sujeito)</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="example-word">Sleeping</span> for eight hours improves concentration. <button class="audio-btn-inline" onclick="playAudio('Sleeping for eight hours improves concentration.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ˈsliːpɪŋ fər eɪt ˈaʊərz.../</span><br><span class="character-portuguese-phonetics">(SLÍI-pin fór ÊIT ÁU-ãrz...)</span><span class="details-translation">Dormir por oito horas melhora a concentração. (Sujeito)</span></td>
-                        </tr>
-                        <!-- Gerúndio após Verbos -->
-                        <tr>
-                            <td>I <span class="example-word">enjoy jogging</span> in the morning. <button class="audio-btn-inline" onclick="playAudio('I enjoy jogging in the morning.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/aɪ ɪnˈdʒɔɪ ˈdʒɑːɡɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÁI en-DJÓI DJÓ-guin...)</span><span class="details-translation">Eu gosto de correr de manhã. (Objeto de 'enjoy')</span></td>
-                        </tr>
-                        <tr>
-                            <td>She <span class="example-word">loves cooking</span> for her family. <button class="audio-btn-inline" onclick="playAudio('She loves cooking for her family.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ʃiː lʌvz ˈkʊkɪŋ.../</span><br><span class="character-portuguese-phonetics">(XÍI LÂVZ CÚ-kin...)</span><span class="details-translation">Ela ama cozinhar para sua família. (Objeto de 'love')</span></td>
-                        </tr>
-                        <tr>
-                            <td>He <span class="example-word">dislikes waiting</span> at the doctor's office. <button class="audio-btn-inline" onclick="playAudio('He dislikes waiting at the doctor\'s office.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/hiː dɪsˈlaɪks ˈweɪtɪŋ.../</span><br><span class="character-portuguese-phonetics">(RÍI dês-LÁIKS UÊI-tin...)</span><span class="details-translation">Ele não gosta de esperar no consultório médico. (Objeto de 'dislike')</span></td>
-                        </tr>
-                        <tr>
-                            <td>They <span class="example-word">finished renovating</span> their house. <button class="audio-btn-inline" onclick="playAudio('They finished renovating their house.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ðeɪ ˈfɪnɪʃt ˈrenəveɪtɪŋ.../</span><br><span class="character-portuguese-phonetics">(DHÊI FÊ-nêsht RÉ-nõ-vei-tin...)</span><span class="details-translation">Eles terminaram de reformar a casa deles. (Objeto de 'finish')</span></td>
-                        </tr>
-                        <tr>
-                            <td>We <span class="example-word">avoid eating</span> processed foods. <button class="audio-btn-inline" onclick="playAudio('We avoid eating processed foods.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/wiː əˈvɔɪd ˈiːtɪŋ ˈprɑːsest fuːdz/</span><br><span class="character-portuguese-phonetics">(UÍI ã-VÓID ÍI-tin PRÓ-sest FÚUDZ)</span><span class="details-translation">Nós evitamos comer alimentos processados. (Objeto de 'avoid')</span></td>
-                        </tr>
-                        <tr>
-                            <td>My doctor <span class="example-word">suggested trying</span> yoga for stress relief. <button class="audio-btn-inline" onclick="playAudio('My doctor suggested trying yoga for stress relief.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/maɪ ˈdɑːktər səˈdʒestɪd ˈtraɪɪŋ.../</span><br><span class="character-portuguese-phonetics">(MÁI DÓK-tãr sã-DJÉS-têd TRÁI-in...)</span><span class="details-translation">Meu médico sugeriu tentar ioga para alívio do estresse. (Objeto de 'suggest')</span></td>
-                        </tr>
-                        <tr>
-                            <td>I <span class="example-word">can't stand listening</span> to loud music. <button class="audio-btn-inline" onclick="playAudio('I can\'t stand listening to loud music.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/aɪ kænt stænd ˈlɪsnɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÁI KÉNT STÉND LÊ-sã-nin...)</span><span class="details-translation">Eu não suporto ouvir música alta. (Objeto de 'can't stand')</span></td>
-                        </tr>
-                        <tr>
-                            <td>He <span class="example-word">admitted making</span> a mistake in his diet plan. <button class="audio-btn-inline" onclick="playAudio('He admitted making a mistake in his diet plan.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/hiː ædˈmɪtɪd ˈmeɪkɪŋ.../</span><br><span class="character-portuguese-phonetics">(RÍI éd-MÊ-têd MÊI-kin...)</span><span class="details-translation">Ele admitiu ter cometido um erro em seu plano de dieta. (Objeto de 'admit')</span></td>
-                        </tr>
-                        <tr>
-                            <td>She <span class="example-word">keeps forgetting</span> to take her vitamins. <button class="audio-btn-inline" onclick="playAudio('She keeps forgetting to take her vitamins.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ʃiː kiːps fərˈɡetɪŋ.../</span><br><span class="character-portuguese-phonetics">(XÍI KÍIPS fór-GUÉ-tin...)</span><span class="details-translation">Ela continua esquecendo de tomar suas vitaminas. (Objeto de 'keep')</span></td>
-                        </tr>
-                        <tr>
-                            <td>I <span class="example-word">miss living</span> in a smaller, quieter city. <button class="audio-btn-inline" onclick="playAudio('I miss living in a smaller, quieter city.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/aɪ mɪs ˈlɪvɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÁI MÊS LÊ-vin...)</span><span class="details-translation">Eu sinto falta de morar em uma cidade menor e mais tranquila. (Objeto de 'miss')</span></td>
-                        </tr>
-                        <!-- Gerúndio após Preposições -->
-                        <tr>
-                            <td>I am interested <span class="example-word">in learning</span> about healthy aging. <button class="audio-btn-inline" onclick="playAudio('I am interested in learning about healthy aging.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... ɪn ˈlɜːrnɪŋ.../</span><br><span class="character-portuguese-phonetics">(... în LÃR-nin...)</span><span class="details-translation">Estou interessado em aprender sobre envelhecimento saudável. (Após 'in')</span></td>
-                        </tr>
-                        <tr>
-                            <td>She is good <span class="example-word">at playing</span> tennis. <button class="audio-btn-inline" onclick="playAudio('She is good at playing tennis.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... æt ˈpleɪɪŋ.../</span><br><span class="character-portuguese-phonetics">(... ét PLÊI-in...)</span><span class="details-translation">Ela é boa em jogar tênis. (Após 'at')</span></td>
-                        </tr>
-                        <tr>
-                            <td>Thank you <span class="example-word">for helping</span> me with my exercise routine. <button class="audio-btn-inline" onclick="playAudio('Thank you for helping me with my exercise routine.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... fər ˈhelpɪŋ.../</span><br><span class="character-portuguese-phonetics">(... fór RÉL-pin...)</span><span class="details-translation">Obrigado por me ajudar com minha rotina de exercícios. (Após 'for')</span></td>
-                        </tr>
-                        <tr>
-                            <td>He improved his health <span class="example-word">by eating</span> better. <button class="audio-btn-inline" onclick="playAudio('He improved his health by eating better.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... baɪ ˈiːtɪŋ.../</span><br><span class="character-portuguese-phonetics">(... bái ÍI-tin...)</span><span class="details-translation">Ele melhorou sua saúde comendo melhor. (Após 'by')</span></td>
-                        </tr>
-                        <tr>
-                            <td>What about <span class="example-word">going</span> for a run? <button class="audio-btn-inline" onclick="playAudio('What about going for a run?')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/wʌt əˈbaʊt ˈɡoʊɪŋ.../</span><br><span class="character-portuguese-phonetics">(uót ã-BÁUT GÔU-in...)</span><span class="details-translation">Que tal ir correr? (Após 'about')</span></td>
-                        </tr>
-                        <tr>
-                            <td>He is responsible <span class="example-word">for managing</span> the team. <button class="audio-btn-inline" onclick="playAudio('He is responsible for managing the team.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... fɔːr ˈmænɪdʒɪŋ.../</span><br><span class="character-portuguese-phonetics">(... fór MÉ-nĩ-djin...)</span><span class="details-translation">Ele é responsável por gerenciar a equipe. (Após 'for')</span></td>
-                        </tr>
-                        <tr>
-                            <td>I am tired <span class="example-word">of hearing</span> the same excuses. <button class="audio-btn-inline" onclick="playAudio('I am tired of hearing the same excuses.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... əv ˈhɪrɪŋ.../</span><br><span class="character-portuguese-phonetics">(... óv RÍ-rin...)</span><span class="details-translation">Estou cansado de ouvir as mesmas desculpas. (Após 'of')</span></td>
-                        </tr>
-                        <tr>
-                            <td>Before <span class="example-word">leaving</span> the house, she checked her emails. <button class="audio-btn-inline" onclick="playAudio('Before leaving the house, she checked her emails.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/bɪˈfɔːr ˈliːvɪŋ.../</span><br><span class="character-portuguese-phonetics">(bi-FÓR LÍI-vin...)</span><span class="details-translation">Antes de sair de casa, ela checou seus emails. (Após 'before')</span></td>
-                        </tr>
-                        <tr>
-                            <td>After <span class="example-word">finishing</span> her workout, she felt energized. <button class="audio-btn-inline" onclick="playAudio('After finishing her workout, she felt energized.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ˈæftər ˈfɪnɪʃɪŋ.../</span><br><span class="character-portuguese-phonetics">(ÉF-tãr FÊ-nê-shin...)</span><span class="details-translation">Depois de terminar seu treino, ela se sentiu energizada. (Após 'after')</span></td>
-                        </tr>
-                        <tr>
-                            <td>He succeeded <span class="example-word">in convincing</span> his boss. <button class="audio-btn-inline" onclick="playAudio('He succeeded in convincing his boss.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... ɪn kənˈvɪnsɪŋ.../</span><br><span class="character-portuguese-phonetics">(... în cãn-VÊN-sin...)</span><span class="details-translation">Ele teve sucesso em convencer seu chefe. (Após 'in')</span></td>
-                        </tr>
-                        <tr>
-                            <td>We talked <span class="example-word">about changing</span> our lifestyle. <button class="audio-btn-inline" onclick="playAudio('We talked about changing our lifestyle.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... əˈbaʊt ˈtʃeɪndʒɪŋ.../</span><br><span class="character-portuguese-phonetics">(... ã-BÁUT TCHÊIN-djin...)</span><span class="details-translation">Nós conversamos sobre mudar nosso estilo de vida. (Após 'about')</span></td>
-                        </tr>
-                        <tr>
-                            <td>She apologized <span class="example-word">for being</span> late. <button class="audio-btn-inline" onclick="playAudio('She apologized for being late.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... fɔːr ˈbiːɪŋ.../</span><br><span class="character-portuguese-phonetics">(... fór BÍI-in...)</span><span class="details-translation">Ela se desculpou por estar atrasada. (Após 'for')</span></td>
-                        </tr>
-                        <tr>
-                            <td>Instead of <span class="example-word">watching</span> TV, let's go for a walk. <button class="audio-btn-inline" onclick="playAudio('Instead of watching TV, let\'s go for a walk.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/ɪnˈsted əv ˈwɑːtʃɪŋ.../</span><br><span class="character-portuguese-phonetics">(în-STÉD óv UÓ-tchin...)</span><span class="details-translation">Em vez de assistir TV, vamos caminhar. (Após 'instead of')</span></td>
-                        </tr>
-                        <tr>
-                            <td>He insisted <span class="example-word">on paying</span> for dinner. <button class="audio-btn-inline" onclick="playAudio('He insisted on paying for dinner.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... ɑːn ˈpeɪɪŋ.../</span><br><span class="character-portuguese-phonetics">(... ón PÊI-in...)</span><span class="details-translation">Ele insistiu em pagar pelo jantar. (Após 'on')</span></td>
-                        </tr>
-                        <tr>
-                            <td>She improved her English <span class="example-word">by practicing</span> every day. <button class="audio-btn-inline" onclick="playAudio('She improved her English by practicing every day.')">🔊</button></td>
-                            <td class="details-cell"><span class="ipa-symbol">/... baɪ ˈpræktɪsɪŋ.../</span><br><span class="character-portuguese-phonetics">(... bái PRÉK-tĩ-sin...)</span><span class="details-translation">Ela melhorou seu inglês praticando todos os dias. (Após 'by')</span></td>
-                        </tr>
-                    </tbody>
+                    <tbody id="sentencesTableBody"></tbody>
                 </table>
             </div>
-        </section>
 
-        <section id="vocabulario">
-            <h3>Vocabulário da Aula: Hobbies, Interesses e Bem-Estar 📚</h3>
-            <p>Verbos e gerúndios de nível intermediário relacionados ao tema.</p>
-            <div class="vocab-grid">
-                <!-- Row 1 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Achieving</span><span class="vocab-ipa">/əˈtʃiːvɪŋ/</span><span class="vocab-pt">ALCANÇAR / CONQUISTAR</span></div><button class="audio-btn-round" onclick="playAudio('Achieving')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Avoiding</span><span class="vocab-ipa">/əˈvɔɪdɪŋ/</span><span class="vocab-pt">EVITAR</span></div><button class="audio-btn-round" onclick="playAudio('Avoiding')">🔊</button></div>
-                <!-- Row 2 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Balancing</span><span class="vocab-ipa">/ˈbælənsɪŋ/</span><span class="vocab-pt">EQUILIBRAR</span></div><button class="audio-btn-round" onclick="playAudio('Balancing')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Building</span><span class="vocab-ipa">/ˈbɪldɪŋ/</span><span class="vocab-pt">CONSTRUIR</span></div><button class="audio-btn-round" onclick="playAudio('Building')">🔊</button></div>
-                <!-- Row 3 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Celebrating</span><span class="vocab-ipa">/ˈseləbreɪtɪŋ/</span><span class="vocab-pt">CELEBRAR</span></div><button class="audio-btn-round" onclick="playAudio('Celebrating')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Challenging</span><span class="vocab-ipa">/ˈtʃæləndʒɪŋ/</span><span class="vocab-pt">DESAFIAR</span></div><button class="audio-btn-round" onclick="playAudio('Challenging')">🔊</button></div>
-                <!-- Row 4 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Collecting</span><span class="vocab-ipa">/kəˈlektɪŋ/</span><span class="vocab-pt">COLECIONAR</span></div><button class="audio-btn-round" onclick="playAudio('Collecting')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Contributing</span><span class="vocab-ipa">/kənˈtrɪbjuːtɪŋ/</span><span class="vocab-pt">CONTRIBUIR</span></div><button class="audio-btn-round" onclick="playAudio('Contributing')">🔊</button></div>
-                <!-- Row 5 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Coping with</span><span class="vocab-ipa">/ˈkoʊpɪŋ wɪð/</span><span class="vocab-pt">LIDAR COM (ALGO)</span></div><button class="audio-btn-round" onclick="playAudio('Coping with')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Creating</span><span class="vocab-ipa">/kriˈeɪtɪŋ/</span><span class="vocab-pt">CRIAR</span></div><button class="audio-btn-round" onclick="playAudio('Creating')">🔊</button></div>
-                <!-- Row 6 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Developing</span><span class="vocab-ipa">/dɪˈveləpɪŋ/</span><span class="vocab-pt">DESENVOLVER</span></div><button class="audio-btn-round" onclick="playAudio('Developing')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Discovering</span><span class="vocab-ipa">/dɪˈskʌvərɪŋ/</span><span class="vocab-pt">DESCOBRIR</span></div><button class="audio-btn-round" onclick="playAudio('Discovering')">🔊</button></div>
-                <!-- Row 7 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Encouraging</span><span class="vocab-ipa">/ɪnˈkɜːrɪdʒɪŋ/</span><span class="vocab-pt">INCENTIVAR</span></div><button class="audio-btn-round" onclick="playAudio('Encouraging')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Exploring</span><span class="vocab-ipa">/ɪkˈsplɔːrɪŋ/</span><span class="vocab-pt">EXPLORAR</span></div><button class="audio-btn-round" onclick="playAudio('Exploring')">🔊</button></div>
-                <!-- Row 8 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Focusing on</span><span class="vocab-ipa">/ˈfoʊkəsɪŋ ɑːn/</span><span class="vocab-pt">FOCAR EM</span></div><button class="audio-btn-round" onclick="playAudio('Focusing on')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Forgiving</span><span class="vocab-ipa">/fərˈɡɪvɪŋ/</span><span class="vocab-pt">PERDOAR</span></div><button class="audio-btn-round" onclick="playAudio('Forgiving')">🔊</button></div>
-                <!-- Row 9 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Gardening</span><span class="vocab-ipa">/ˈɡɑːrdnɪŋ/</span><span class="vocab-pt">JARDINAGEM</span></div><button class="audio-btn-round" onclick="playAudio('Gardening')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Improving</span><span class="vocab-ipa">/ɪmˈpruːvɪŋ/</span><span class="vocab-pt">MELHORAR</span></div><button class="audio-btn-round" onclick="playAudio('Improving')">🔊</button></div>
-                <!-- Row 10 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Investing</span><span class="vocab-ipa">/ɪnˈvestɪŋ/</span><span class="vocab-pt">INVESTIR</span></div><button class="audio-btn-round" onclick="playAudio('Investing')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Jogging</span><span class="vocab-ipa">/ˈdʒɑːɡɪŋ/</span><span class="vocab-pt">CORRER (LEVE)</span></div><button class="audio-btn-round" onclick="playAudio('Jogging')">🔊</button></div>
-                <!-- Row 11 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Maintaining</span><span class="vocab-ipa">/meɪnˈteɪnɪŋ/</span><span class="vocab-pt">MANTER</span></div><button class="audio-btn-round" onclick="playAudio('Maintaining')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Meditating</span><span class="vocab-ipa">/ˈmedɪteɪtɪŋ/</span><span class="vocab-pt">MEDITAR</span></div><button class="audio-btn-round" onclick="playAudio('Meditating')">🔊</button></div>
-                <!-- Row 12 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Organizing</span><span class="vocab-ipa">/ˈɔːrɡənaɪzɪŋ/</span><span class="vocab-pt">ORGANIZAR</span></div><button class="audio-btn-round" onclick="playAudio('Organizing')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Overcoming</span><span class="vocab-ipa">/ˌoʊvərˈkʌmɪŋ/</span><span class="vocab-pt">SUPERAR</span></div><button class="audio-btn-round" onclick="playAudio('Overcoming')">🔊</button></div>
-                <!-- Row 13 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Practicing</span><span class="vocab-ipa">/ˈpræktɪsɪŋ/</span><span class="vocab-pt">PRATICAR</span></div><button class="audio-btn-round" onclick="playAudio('Practicing')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Prioritizing</span><span class="vocab-ipa">/praɪˈɔːrətaɪzɪŋ/</span><span class="vocab-pt">PRIORIZAR</span></div><button class="audio-btn-round" onclick="playAudio('Prioritizing')">🔊</button></div>
-                <!-- Row 14 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Quitting</span><span class="vocab-ipa">/ˈkwɪtɪŋ/</span><span class="vocab-pt">DESISTIR</span></div><button class="audio-btn-round" onclick="playAudio('Quitting')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Relaxing</span><span class="vocab-ipa">/rɪˈlæksɪŋ/</span><span class="vocab-pt">RELAXAR</span></div><button class="audio-btn-round" onclick="playAudio('Relaxing')">🔊</button></div>
-                <!-- Row 15 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Solving</span><span class="vocab-ipa">/ˈsɑːlvɪŋ/</span><span class="vocab-pt">RESOLVER</span></div><button class="audio-btn-round" onclick="playAudio('Solving')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Strengthening</span><span class="vocab-ipa">/ˈstreŋθənɪŋ/</span><span class="vocab-pt">FORTALECER</span></div><button class="audio-btn-round" onclick="playAudio('Strengthening')">🔊</button></div>
-                <!-- Row 16 -->
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Volunteering</span><span class="vocab-ipa">/ˌvɑːlənˈtɪrɪŋ/</span><span class="vocab-pt">TRABALHAR COMO VOLUNTÁRIO</span></div><button class="audio-btn-round" onclick="playAudio('Volunteering')">🔊</button></div>
-                <div class="vocab-item"><div class="vocab-text"><span class="vocab-en">Writing</span><span class="vocab-ipa">/ˈraɪtɪŋ/</span><span class="vocab-pt">ESCREVER</span></div><button class="audio-btn-round" onclick="playAudio('Writing')">🔊</button></div>
+            <div class="obs-box empty-note" data-obs-wrapper="obs_31_2">
+                <div class="obs-header">
+                    <label class="obs-title" for="obs_31_2">📝 Minhas Observações – Seção 31.2 (30 Frases com Gerúndios)</label>
+                    <span class="obs-save-badge" id="badge_obs_31_2">✓ Salvo no navegador</span>
+                </div>
+                <textarea id="obs_31_2" class="obs-textarea" data-section-name="31.2 Frases de Prática" placeholder="Anote os verbos que sempre pedem -ing (enjoy, avoid, suggest, finish, miss, admit, keep)..."></textarea>
+                <div class="obs-print-mirror" id="mirror_obs_31_2"></div>
             </div>
         </section>
 
-        <section id="tarefa-extra" class="extra-task">
-            <h3>Tarefa Extra ✍️</h3>
-            <h4>Translate the Text</h4>
-            <p>Read the text below about the importance of hobbies for a healthy lifestyle. Pay attention to the use of gerunds. Then, try to translate it into Portuguese.</p>
-            <p>
-                <span class="example-word">Maintaining</span> a good quality of life involves more than just eating well and exercising. It's also about finding activities that bring joy and reduce stress. <span class="example-word">Having</span> a hobby is an excellent way of achieving this balance. For many, <span class="example-word">painting</span> or <span class="example-word">drawing</span> offers a creative outlet. The act of <span class="example-word">creating</span> something new is incredibly rewarding.
-                <br><br>
-                Some people prefer more active pursuits. <span class="example-word">Hiking</span> in nature, for example, is not only good for the body but also for the mind. Being outdoors and <span class="example-word">breathing</span> fresh air can be very therapeutic. Similarly, <span class="example-word">swimming</span> is a fantastic full-body workout without putting too much strain on the joints.
-                <br><br>
-                For those interested in mental challenges, <span class="example-word">learning</span> a new language or <span class="example-word">playing</span> a musical instrument are wonderful options. <span class="example-word">Practicing</span> a new skill requires focus and dedication, which is great for brain health. I, for one, enjoy <span class="example-word">solving</span> complex puzzles in my free time. It's a great way of keeping my mind sharp.
-                <br><br>
-                It's important to stop <span class="example-word">making</span> excuses like "I don't have time." Everyone can benefit from <span class="example-word">setting</span> aside a small amount of time each week for a personal interest. <span class="example-word">Volunteering</span> is another fulfilling activity that gives a sense of purpose. By <span class="example-word">helping</span> others, we often end up helping ourselves.
-                <br><br>
-                In the end, it doesn't matter what you choose. The key is in the <span class="example-word">doing</span>. <span class="example-word">Finding</span> an activity you love and <span class="example-word">making</span> it a regular part of your life is a significant step towards a healthier and happier existence. Without <span class="example-word">exploring</span> different interests, you might never discover a passion that could enrich your life immensely.
-            </p>
-            <hr>
-            <h4>Quiz</h4>
-            <p>Besides eating well and exercising, what does the text say is important for maintaining a good quality of life?</p>
-            <ol class="quiz-options">
-                <li>Working longer hours.</li>
-                <li>Watching more documentaries.</li>
-                <li>Finding activities that bring joy and reduce stress.</li>
-                <li>Saving a lot of money.</li>
-                <li>Avoiding all challenges.</li>
-            </ol>
-            <details class="gabarito">
-                <summary>Ver Resposta do Quiz</summary>
-                <div class="gabarito-content">
-                    Resposta Correta: <strong>c) Finding activities that bring joy and reduce stress.</strong>
+        <!-- ==================== SEÇÃO 31.3: VOCABULÁRIO (32 CARDS) ==================== -->
+        <section id="sec-31-3">
+            <h3>31.3 Vocabulário da Aula: Hobbies, Interesses e Bem-Estar (32 Termos) <span class="emoji-small">📚🔊</span></h3>
+            <p>Verbos e gerúndios de nível intermediário relacionados a hábitos, projetos e qualidade de vida. Toque no botão azul <strong>🔊</strong> de cada card para ouvir a pronúncia:</p>
+
+            <div class="search-box">
+                <input type="text" id="vocabSearch" class="search-input" placeholder="🔍 Filtrar vocabulário (ex: achieving, coping, gardening, meditating, overcoming, volunteering, meditar)..." onkeyup="filterVocab()">
+            </div>
+
+            <div id="vocabGrid" class="vocab-grid"></div>
+
+            <div class="obs-box empty-note" data-obs-wrapper="obs_31_3">
+                <div class="obs-header">
+                    <label class="obs-title" for="obs_31_3">📝 Minhas Observações – Seção 31.3 (Vocabulário da Aula)</label>
+                    <span class="obs-save-badge" id="badge_obs_31_3">✓ Salvo no navegador</span>
                 </div>
-            </details>
+                <textarea id="obs_31_3" class="obs-textarea" data-section-name="31.3 Vocabulário" placeholder="Anote os gerúndios novos (como coping with, overcoming, prioritizing, strengthening) e crie frases..."></textarea>
+                <div class="obs-print-mirror" id="mirror_obs_31_3"></div>
+            </div>
         </section>
 
-        <section id="exercicios-finais">
-            <h3>Exercícios Práticos Finais 📝</h3>
+        <!-- ==================== SEÇÃO 31.4: TAREFA EXTRA + QUIZ INTERATIVO ==================== -->
+        <section id="sec-31-4" class="extra-task">
+            <h3 style="margin-top:0; border-left-color: var(--purple); color: #6c3483;">31.4 Tarefa Extra: Leitura, Áudio e Quiz Interativo <span class="emoji-small">✍️🎧</span></h3>
+            <p>Leia e escute o texto abaixo sobre a importância dos hobbies para um estilo de vida saudável. Observe como os gerúndios aparecem o tempo todo dando fluidez ao texto e tente traduzi-lo na sua caixa de observações!</p>
+
+            <div class="story-card">
+                <div class="story-header">
+                    <strong style="color: #6c3483;">📖 Story: The Importance of Hobbies for a Healthy Lifestyle</strong>
+                    <button id="storyAudioBtn" class="audio-btn-pill" onclick="toggleStoryAudio()">🔊 Ouvir Texto Completo</button>
+                </div>
+                <p><span class="example-word">Maintaining</span> a good quality of life involves more than just eating well and exercising. It's also about finding activities that bring joy and reduce stress. <span class="example-word">Having</span> a hobby is an excellent way of achieving this balance. For many, <span class="example-word">painting</span> or <span class="example-word">drawing</span> offers a creative outlet. The act of <span class="example-word">creating</span> something new is incredibly rewarding.</p>
+                <p>Some people prefer more active pursuits. <span class="example-word">Hiking</span> in nature, for example, is not only good for the body but also for the mind. Being outdoors and <span class="example-word">breathing</span> fresh air can be very therapeutic. Similarly, <span class="example-word">swimming</span> is a fantastic full-body workout without putting too much strain on the joints.</p>
+                <p>For those interested in mental challenges, <span class="example-word">learning</span> a new language or <span class="example-word">playing</span> a musical instrument are wonderful options. <span class="example-word">Practicing</span> a new skill requires focus and dedication, which is great for brain health. I, for one, enjoy <span class="example-word">solving</span> complex puzzles in my free time. It's a great way of keeping my mind sharp.</p>
+                <p>It's important to stop <span class="example-word">making</span> excuses like "I don't have time." Everyone can benefit from <span class="example-word">setting</span> aside a small amount of time each week for a personal interest. <span class="example-word">Volunteering</span> is another fulfilling activity that gives a sense of purpose. By <span class="example-word">helping</span> others, we often end up helping ourselves.</p>
+                <p style="margin-bottom:0;">In the end, it doesn't matter what you choose. The key is in the <span class="example-word">doing</span>. <span class="example-word">Finding</span> an activity you love and <span class="example-word">making</span> it a regular part of your life is a significant step towards a healthier and happier existence. Without <span class="example-word">exploring</span> different interests, you might never discover a passion that could enrich your life immensely.</p>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <p><strong>Quiz 1 (Compreensão do Texto):</strong> Besides eating well and exercising, what does the text say is important for maintaining a good quality of life?</p>
+                    <button class="quiz-btn" onclick="checkQuiz(this, false, 'q1', 'Incorreto! O texto fala sobre reservar tempo para interesses pessoais, não trabalhar mais horas.')">a) Working longer hours.</button>
+                    <button class="quiz-btn" onclick="checkQuiz(this, false, 'q1', 'Incorreto! O texto não menciona assistir a mais documentários.')">b) Watching more documentaries.</button>
+                    <button class="quiz-btn" onclick="checkQuiz(this, true, 'q1', 'Perfeito! Logo no primeiro parágrafo o texto afirma: &ldquo;It\'s also about finding activities that bring joy and reduce stress.&rdquo; (Encontrar atividades que tragam alegria e reduzam o estresse).')">c) Finding activities that bring joy and reduce stress.</button>
+                    <button class="quiz-btn" onclick="checkQuiz(this, false, 'q1', 'Incorreto! O foco do texto é bem-estar, criatividade e propósito, não apenas economizar dinheiro.')">d) Saving a lot of money.</button>
+                    <button class="quiz-btn" onclick="checkQuiz(this, false, 'q1', 'Incorreto! Pelo contrário, o texto incentiva desafios mentais como aprender um idioma ou tocar um instrumento.')">e) Avoiding all challenges.</button>
+                    <div id="feedback-q1" class="quiz-feedback"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>Quiz 2 (Gramática na Prática):</strong> Qual frase usa o <strong>Gerúndio (-ing)</strong> corretamente após preposição e verbo?</p>
+                    <button class="quiz-btn" onclick="checkQuiz(this, false, 'q2', 'Cuidado! Após a preposição &ldquo;for&rdquo;, o verbo precisa obrigatoriamente receber -ing (for helping).')">a) Thank you for help me today.</button>
+                    <button class="quiz-btn" onclick="checkQuiz(this, true, 'q2', 'Exato! Tanto o verbo &ldquo;avoid&rdquo; quanto a preposição &ldquo;before&rdquo; exigem sempre o verbo no gerúndio (-ing)!')">b) We avoid eating junk food before sleeping.</button>
+                    <button class="quiz-btn" onclick="checkQuiz(this, false, 'q2', 'Incorreto! O verbo &ldquo;enjoy&rdquo; é sempre seguido de gerúndio (I enjoy swimming), nunca &ldquo;to swim&rdquo;.')">c) I enjoy to swim in the morning.</button>
+                    <div id="feedback-q2" class="quiz-feedback"></div>
+                </div>
+            </div>
+
+            <div class="obs-box empty-note" data-obs-wrapper="obs_31_4" style="margin-bottom:0;">
+                <div class="obs-header">
+                    <label class="obs-title" for="obs_31_4">📝 Minhas Observações – Seção 31.4 (Tradução do Texto e Anotações)</label>
+                    <span class="obs-save-badge" id="badge_obs_31_4">✓ Salvo no navegador</span>
+                </div>
+                <textarea id="obs_31_4" class="obs-textarea" data-section-name="31.4 Tarefa Extra (Tradução)" placeholder="Escreva aqui sua tradução do texto ou anote expressões novas (creative outlet, set aside time, sense of purpose)..."></textarea>
+                <div class="obs-print-mirror" id="mirror_obs_31_4"></div>
+            </div>
+        </section>
+
+        <!-- ==================== SEÇÃO 31.5: EXERCÍCIOS PRÁTICOS FINAIS ==================== -->
+        <section id="sec-31-5">
+            <h3>31.5 Exercícios Práticos Finais (Editáveis e Salvos Automaticamente) <span class="emoji-small">📝</span></h3>
             <div class="secao-exercicios">
-                <h4>Parte 1: Complete com Gerúndios</h4>
-                <p>Complete as frases com o gerúndio do verbo entre parênteses.</p>
-                <ol class="exercise-list">
-                    <li><span class="fill-in-blank"></span> (learn) a new language is challenging.</li>
-                    <li>She is very good at <span class="fill-in-blank"></span> (organize) events.</li>
-                    <li>He suggested <span class="fill-in-blank"></span> (go) to the new gym.</li>
+                <h4 style="margin-top:0;">Parte 1: Complete com Gerúndios</h4>
+                <p>Complete as frases digitando o <strong>gerúndio (-ing)</strong> do verbo entre parênteses:</p>
+                <ol>
+                    <li><input type="text" id="ex31_1_1" class="exercise-input" placeholder="learn"> (learn) a new language is challenging.</li>
+                    <li>She is very good at <input type="text" id="ex31_1_2" class="exercise-input" placeholder="organize"> (organize) events.</li>
+                    <li>He suggested <input type="text" id="ex31_1_3" class="exercise-input" placeholder="go"> (go) to the new gym.</li>
                 </ol>
+
+                <details class="gabarito">
+                    <summary>📖 Ver Gabarito dos Exercícios com Áudio 🔊</summary>
+                    <div class="gabarito-content">
+                        <p><strong>Respostas da Parte 1:</strong></p>
+                        <p>1. <strong>Learning</strong> a new language is challenging. <button class="audio-btn-inline" onclick="playAudio('Learning a new language is challenging.')">🔊</button></p>
+                        <p>2. She is very good at <strong>organizing</strong> events. <button class="audio-btn-inline" onclick="playAudio('She is very good at organizing events.')">🔊</button></p>
+                        <p>3. He suggested <strong>going</strong> to the new gym. <button class="audio-btn-inline" onclick="playAudio('He suggested going to the new gym.')">🔊</button></p>
+                    </div>
+                </details>
             </div>
-            <details class="gabarito">
-                <summary>Ver Gabarito dos Exercícios</summary>
-                <div class="gabarito-content">
-                    <p><strong>Parte 1:</strong> 1. Learning, 2. organizing, 3. going.</p>
+
+            <div class="obs-box empty-note" data-obs-wrapper="obs_31_5">
+                <div class="obs-header">
+                    <label class="obs-title" for="obs_31_5">📝 Minhas Observações – Seção 31.5 (Exercícios Práticos)</label>
+                    <span class="obs-save-badge" id="badge_obs_31_5">✓ Salvo no navegador</span>
                 </div>
-            </details>
+                <textarea id="obs_31_5" class="obs-textarea" data-section-name="31.5 Exercícios Práticos" placeholder="Anote seu resultado nos exercícios ou escreva mais 3 frases usando gerúndios..."></textarea>
+                <div class="obs-print-mirror" id="mirror_obs_31_5"></div>
+            </div>
         </section>
 
+        <!-- ==================== CONCLUSÃO ==================== -->
         <section id="conclusao">
-            <h3>Conclusão 🥳</h3>
-            <p>Parabéns por concluir a Aula 31! Você aprendeu sobre os Gerúndios e como a forma "-ing" de um verbo pode funcionar como um substantivo. Isso permite que você fale sobre atividades, hobbies e interesses de forma muito natural.</p>
-            <p>Continue praticando o uso de gerúndios para descrever suas paixões e atividades diárias.</p>
-            <p>Na Aula 32: "Para Quê? – Infinitivos com "To"", vamos explorar outra forma verbal importante, o Infinitivo. Até lá!</p>
+            <h3>Conclusão da Aula 31 <span class="emoji-small">🥳</span></h3>
+            <div class="nota-dica">
+                <p><strong>Parabéns por concluir a Aula 31!</strong> Você aprendeu sobre os <strong>Gerúndios</strong> e como a forma <em>"-ing"</em> de um verbo pode funcionar como um substantivo — seja como sujeito, objeto de verbos ou após qualquer preposição. Isso permite que você fale sobre atividades, hobbies e interesses de forma muito natural.</p>
+                <p>Continue praticando o uso de gerúndios para descrever suas paixões e atividades diárias.</p>
+                <p style="margin-bottom:0;">Na <strong>Aula 32: "Para Quê? – Infinitivos com 'To'"</strong>, vamos explorar outra forma verbal importante, o Infinitivo. Até lá!</p>
+            </div>
+
+            <div class="obs-box empty-note" data-obs-wrapper="obs_final">
+                <div class="obs-header">
+                    <label class="obs-title" for="obs_final">📝 Observações Gerais e Resumo Pessoal da Aula 31</label>
+                    <span class="obs-save-badge" id="badge_obs_final">✓ Salvo no navegador</span>
+                </div>
+                <textarea id="obs_final" class="obs-textarea" data-section-name="Resumo Geral da Aula 31" placeholder="Espaço livre para seu resumo final da Aula 31, metas de revisão ou anotações pessoais..."></textarea>
+                <div class="obs-print-mirror" id="mirror_obs_final"></div>
+            </div>
         </section>
 
-        <!-- Botão Navegação Rodapé -->
-        <a href="https://espaco-liberdade.github.io/inglesipa/" class="nav-btn">⬅ Voltar ao Menu</a>
+        <!-- BOTÕES INFERIORES: MENU PRINCIPAL + PDF -->
+        <div class="top-actions" style="margin-top: 26px;">
+            <button class="nav-btn" onclick="location.href='https://espaco-liberdade.github.io/inglesipa/'">← Voltar ao Menu Principal</button>
+            <button class="pdf-btn" onclick="printWithNotes()">📄 Salvar como PDF (A4) com Marcações</button>
+        </div>
     </div>
 
-    <!-- SCRIPT DE ÁUDIO OTIMIZADO -->
     <script>
-        let voices = [];
-        
-        function loadVoices() {
-            voices = window.speechSynthesis.getVoices();
+        // =========================================================================
+        // 1. DADOS COMPLETOS DA AULA 31 (TODAS AS 30 FRASES + TODOS OS 32 TERMOS)
+        // =========================================================================
+        // Formato: [Frase HTML, IPA completo, Guia fonético completo, Tradução, Rótulo Contexto, Classe CSS]
+        const gerundSentences = [
+            // Gerúndio como Sujeito (1-5)
+            ["<b>Exercising</b> regularly is crucial for a long life.", "/ˈeksərsaɪzɪŋ ˈreɡjələrli ɪz ˈkruːʃl fər ə lɔːŋ laɪf/", "(ÉK-sãr-sai-zin RÉ-guiu-lãr-li êz CRÚU-shõl fór ã LÓNG LÁIF)", "Exercitar-se regularmente é crucial para uma vida longa.", "Sujeito da Frase", "subject"],
+            ["<b>Eating</b> a balanced diet prevents many diseases.", "/ˈiːtɪŋ ə ˈbælənst ˈdaɪət prɪˈvents ˈmeni dɪˈziːzɪz/", "(ÍI-tin ã BÉ-lãnst DÁI-ãt pri-VÉNTS MÉ-ni dĩ-ZÍI-zêz)", "Comer uma dieta balanceada previne muitas doenças.", "Sujeito da Frase", "subject"],
+            ["<b>Learning</b> new things keeps the mind sharp during aging.", "/ˈlɜːrnɪŋ nuː θɪŋz kiːps ðə maɪnd ʃɑːrp ˈdʊrɪŋ ˈeɪdʒɪŋ/", "(LÃR-nin NÚU THÊNGZ kíips dhã MÁIND XÁRP DÚ-rin ÊI-djin)", "Aprender coisas novas mantém a mente afiada durante o envelhecimento.", "Sujeito da Frase", "subject"],
+            ["<b>Traveling</b> can broaden your horizons.", "/ˈtrævlɪŋ kæn ˈbrɔːdn jɔːr həˈraɪznz/", "(TRÉ-võ-lin kén BRÓ-dãn iór rõ-RÁI-zãnz)", "Viajar pode ampliar seus horizontes.", "Sujeito da Frase", "subject"],
+            ["<b>Sleeping</b> for eight hours improves concentration.", "/ˈsliːpɪŋ fər eɪt ˈaʊərz ɪmˈpruːvz ˌkɑːnsnˈtreɪʃn/", "(SLÍI-pin fór ÊIT ÁU-ãrz êm-PRÚUVZ cón-sãn-TRÊI-shãn)", "Dormir por oito horas melhora a concentração.", "Sujeito da Frase", "subject"],
+
+            // Gerúndio após Verbos (6-15)
+            ["I <b>enjoy jogging</b> in the morning.", "/aɪ ɪnˈdʒɔɪ ˈdʒɑːɡɪŋ ɪn ðə ˈmɔːrnɪŋ/", "(ÁI en-DJÓI DJÓ-guin în dhã MÓR-nin)", "Eu gosto de correr (trote leve) de manhã.", "Objeto de 'enjoy'", "verb"],
+            ["She <b>loves cooking</b> for her family.", "/ʃiː lʌvz ˈkʊkɪŋ fər hər ˈfæməli/", "(XÍI LÂVZ CÚ-kin fór rãr FÉ-mã-li)", "Ela ama cozinhar para sua família.", "Objeto de 'love'", "verb"],
+            ["He <b>dislikes waiting</b> at the doctor's office.", "/hiː dɪsˈlaɪks ˈweɪtɪŋ æt ðə ˈdɑːktərz ˈɔːfɪs/", "(RÍI dês-LÁIKS UÊI-tin ét dhã DÓK-tãrz Ó-fês)", "Ele não gosta de esperar no consultório médico.", "Objeto de 'dislike'", "verb"],
+            ["They <b>finished renovating</b> their house.", "/ðeɪ ˈfɪnɪʃt ˈrenəveɪtɪŋ ðer haʊs/", "(DHÊI FÊ-nêsht RÉ-nõ-vei-tin dhér RÁUS)", "Eles terminaram de reformar a casa deles.", "Objeto de 'finish'", "verb"],
+            ["We <b>avoid eating</b> processed foods.", "/wiː əˈvɔɪd ˈiːtɪŋ ˈprɑːsest fuːdz/", "(UÍI ã-VÓID ÍI-tin PRÓ-sest FÚUDZ)", "Nós evitamos comer alimentos processados.", "Objeto de 'avoid'", "verb"],
+            ["My doctor <b>suggested trying</b> yoga for stress relief.", "/maɪ ˈdɑːktər səˈdʒestɪd ˈtraɪɪŋ ˈjoʊɡə fər stres rɪˈliːf/", "(MÁI DÓK-tãr sã-DJÉS-têd TRÁI-in IÔU-gã fór STRÉS ri-LÍIF)", "Meu médico sugeriu tentar ioga para alívio do estresse.", "Objeto de 'suggest'", "verb"],
+            ["I <b>can't stand listening</b> to loud music.", "/aɪ kænt stænd ˈlɪsnɪŋ tə laʊd ˈmjuːzɪk/", "(ÁI KÉNT STÉND LÊ-sã-nin tã LÁUD MIÚU-zêk)", "Eu não suporto ouvir música alta.", "Objeto de 'can't stand'", "verb"],
+            ["He <b>admitted making</b> a mistake in his diet plan.", "/hiː ədˈmɪtɪd ˈmeɪkɪŋ ə mɪˈsteɪk ɪn hɪz ˈdaɪət plæn/", "(RÍI éd-MÊ-têd MÊI-kin ã mĩ-STÊIK în rêz DÁI-ãt PLÉN)", "Ele admitiu ter cometido um erro em seu plano de dieta.", "Objeto de 'admit'", "verb"],
+            ["She <b>keeps forgetting</b> to take her vitamins.", "/ʃiː kiːps fərˈɡetɪŋ tə teɪk hər ˈvaɪtəmɪnz/", "(XÍI KÍIPS fór-GUÉ-tin tã TÊIK rãr VÁI-tã-mênz)", "Ela continua esquecendo de tomar suas vitaminas.", "Objeto de 'keep'", "verb"],
+            ["I <b>miss living</b> in a smaller, quieter city.", "/aɪ mɪs ˈlɪvɪŋ ɪn ə ˈsmɔːlər ˈkwaɪətər ˈsɪti/", "(ÁI MÊS LÊ-vin în ã SMÓ-lãr, CUÁI-ã-tãr SÊ-ri)", "Eu sinto falta de morar em uma cidade menor e mais tranquila.", "Objeto de 'miss'", "verb"],
+
+            // Gerúndio após Preposições (16-30)
+            ["I am interested <b>in learning</b> about healthy aging.", "/aɪ æm ˈɪntrəstɪd ɪn ˈlɜːrnɪŋ əˈbaʊt ˈhelθi ˈeɪdʒɪŋ/", "(ÁI ém ÊN-três-têd în LÃR-nin ã-BÁUT RÉL-thi ÊI-djin)", "Estou interessado em aprender sobre envelhecimento saudável.", "Após 'in'", "prep"],
+            ["She is good <b>at playing</b> tennis.", "/ʃiː ɪz ɡʊd æt ˈpleɪɪŋ ˈtenɪs/", "(XÍI êz GÚD ét PLÊI-in TÉ-nês)", "Ela é boa em jogar tênis.", "Após 'at'", "prep"],
+            ["Thank you <b>for helping</b> me with my exercise routine.", "/θæŋk juː fər ˈhelpɪŋ miː wɪθ maɪ ˈeksərsaɪz ruːˈtiːn/", "(THÉNK iúu fór RÉL-pin míi uêth mái ÉK-sãr-saiz ruu-TÍIN)", "Obrigado por me ajudar com minha rotina de exercícios.", "Após 'for'", "prep"],
+            ["He improved his health <b>by eating</b> better.", "/hiː ɪmˈpruːvd hɪz helθ baɪ ˈiːtɪŋ ˈbetər/", "(RÍI êm-PRÚUVD rêz RÉLTH bái ÍI-tin BÉ-tãr)", "Ele melhorou sua saúde comendo melhor.", "Após 'by'", "prep"],
+            ["What about <b>going</b> for a run?", "/wʌt əˈbaʊt ˈɡoʊɪŋ fər ə rʌn/", "(UÓT ã-BÁUT GÔU-in fór ã RÂN?)", "Que tal ir correr?", "Após 'about'", "prep"],
+            ["He is responsible <b>for managing</b> the team.", "/hiː ɪz rɪˈspɑːnsəbl fər ˈmænɪdʒɪŋ ðə tiːm/", "(RÍI êz ri-SPÓN-sã-bõl fór MÉ-nĩ-djin dhã TÍIM)", "Ele é responsável por gerenciar a equipe.", "Após 'for'", "prep"],
+            ["I am tired <b>of hearing</b> the same excuses.", "/aɪ æm ˈtaɪərd əv ˈhɪrɪŋ ðə seɪm ɪkˈskjuːsɪz/", "(ÁI ém TÁI-ãrd óv RÍ-rin dhã SÊIM ek-SKIÚU-sêz)", "Estou cansado de ouvir as mesmas desculpas.", "Após 'of'", "prep"],
+            ["Before <b>leaving</b> the house, she checked her emails.", "/bɪˈfɔːr ˈliːvɪŋ ðə haʊs ʃiː tʃekt hər ˈiːmeɪlz/", "(bi-FÓR LÍI-vin dhã RÁUS, xíi TCHÉKT rãr ÍI-meilz)", "Antes de sair de casa, ela checou seus emails.", "Após 'before'", "prep"],
+            ["After <b>finishing</b> her workout, she felt energized.", "/ˈæftər ˈfɪnɪʃɪŋ hər ˈwɜːrkaʊt ʃiː felt ˈenərdʒaɪzd/", "(ÉF-tãr FÊ-nê-shin rãr UÃRK-áut, xíi FÉLT É-nãr-djaizd)", "Depois de terminar seu treino, ela se sentiu energizada.", "Após 'after'", "prep"],
+            ["He succeeded <b>in convincing</b> his boss.", "/hiː səkˈsiːdɪd ɪn kənˈvɪnsɪŋ hɪz bɔːs/", "(RÍI sãk-SÍI-dêd în cãn-VÊN-sin rêz BÓS)", "Ele teve sucesso em convencer seu chefe.", "Após 'in'", "prep"],
+            ["We talked <b>about changing</b> our lifestyle.", "/wiː tɔːkt əˈbaʊt ˈtʃeɪndʒɪŋ ˈaʊər ˈlaɪfstaɪl/", "(UÍI TÓKT ã-BÁUT TCHÊIN-djin áu-ãr LÁIF-stail)", "Nós conversamos sobre mudar nosso estilo de vida.", "Após 'about'", "prep"],
+            ["She apologized <b>for being</b> late.", "/ʃiː əˈpɑːlədʒaɪzd fər ˈbiːɪŋ leɪt/", "(XÍI ã-PÓ-lõ-djaizd fór BÍI-in LÊIT)", "Ela se desculpou por estar atrasada.", "Após 'for'", "prep"],
+            ["Instead of <b>watching</b> TV, let's go for a walk.", "/ɪnˈsted əv ˈwɑːtʃɪŋ ˌtiːˈviː lets ɡoʊ fər ə wɔːk/", "(în-STÉD óv UÓ-tchin tii-VÍI, LÉTS GÔU fór ã UÓK)", "Em vez de assistir TV, vamos caminhar.", "Após 'instead of'", "prep"],
+            ["He insisted <b>on paying</b> for dinner.", "/hiː ɪnˈsɪstɪd ɑːn ˈpeɪɪŋ fər ˈdɪnər/", "(RÍI în-SÊS-têd ón PÊI-in fór DÊ-nãr)", "Ele insistiu em pagar pelo jantar.", "Após 'on'", "prep"],
+            ["She improved her English <b>by practicing</b> every day.", "/ʃiː ɪmˈpruːvd hər ˈɪŋɡlɪʃ baɪ ˈpræktɪsɪŋ ˈevri deɪ/", "(XÍI êm-PRÚUVD rãr ÊN-glêsh bái PRÉK-tĩ-sin É-vri DÊI)", "Ela melhorou seu inglês praticando todos os dias.", "Após 'by'", "prep"]
+        ];
+
+        const vocabWords = [
+            ["Achieving", "/əˈtʃiːvɪŋ/", "(ã-TCHÍI-vin)", "Alcançar / Conquistar"],
+            ["Avoiding", "/əˈvɔɪdɪŋ/", "(ã-VÓI-din)", "Evitar"],
+            ["Balancing", "/ˈbælənsɪŋ/", "(BÉ-lãn-sin)", "Equilibrar"],
+            ["Building", "/ˈbɪldɪŋ/", "(BÊL-din)", "Construir"],
+            ["Celebrating", "/ˈseləbreɪtɪŋ/", "(SÉ-lã-brei-tin)", "Celebrar"],
+            ["Challenging", "/ˈtʃæləndʒɪŋ/", "(TCHÉ-lãn-djin)", "Desafiar"],
+            ["Collecting", "/kəˈlektɪŋ/", "(cõ-LÉK-tin)", "Colecionar"],
+            ["Contributing", "/kənˈtrɪbjuːtɪŋ/", "(cãn-TRÊ-biu-tin)", "Contribuir"],
+            ["Coping with", "/ˈkoʊpɪŋ wɪð/", "(CÔU-pin uêdh)", "Lidar com (algo)"],
+            ["Creating", "/kriˈeɪtɪŋ/", "(cri-ÊI-tin)", "Criar"],
+            ["Developing", "/dɪˈveləpɪŋ/", "(dĩ-VÉ-lõ-pin)", "Desenvolver"],
+            ["Discovering", "/dɪˈskʌvərɪŋ/", "(dês-CÂ-võ-rin)", "Descobrir"],
+            ["Encouraging", "/ɪnˈkɜːrɪdʒɪŋ/", "(en-CÃ-rê-djin)", "Incentivar"],
+            ["Exploring", "/ɪkˈsplɔːrɪŋ/", "(ek-SPLÓ-rin)", "Explorar"],
+            ["Focusing on", "/ˈfoʊkəsɪŋ ɑːn/", "(FÔU-cõ-sin ón)", "Focar em"],
+            ["Forgiving", "/fərˈɡɪvɪŋ/", "(fór-GUÊ-vin)", "Perdoar"],
+            ["Gardening", "/ˈɡɑːrdnɪŋ/", "(GÁR-dã-nin)", "Jardinagem"],
+            ["Improving", "/ɪmˈpruːvɪŋ/", "(em-PRÚU-vin)", "Melhorar"],
+            ["Investing", "/ɪnˈvestɪŋ/", "(în-VÉS-tin)", "Investir"],
+            ["Jogging", "/ˈdʒɑːɡɪŋ/", "(DJÓ-guin)", "Correr (leve)"],
+            ["Maintaining", "/meɪnˈteɪnɪŋ/", "(mein-TÊI-nin)", "Manter"],
+            ["Meditating", "/ˈmedɪteɪtɪŋ/", "(MÉ-dĩ-tei-tin)", "Meditar"],
+            ["Organizing", "/ˈɔːrɡənaɪzɪŋ/", "(ÓR-gã-nai-zin)", "Organizar"],
+            ["Overcoming", "/ˌoʊvərˈkʌmɪŋ/", "(ôu-võr-CÂ-min)", "Superar"],
+            ["Practicing", "/ˈpræktɪsɪŋ/", "(PRÉK-tĩ-sin)", "Praticar"],
+            ["Prioritizing", "/praɪˈɔːrətaɪzɪŋ/", "(prai-Ó-rã-tai-zin)", "Priorizar"],
+            ["Quitting", "/ˈkwɪtɪŋ/", "(CUÊ-tin)", "Desistir"],
+            ["Relaxing", "/rɪˈlæksɪŋ/", "(ri-LÉK-sin)", "Relaxar"],
+            ["Solving", "/ˈsɑːlvɪŋ/", "(SÓL-vin)", "Resolver"],
+            ["Strengthening", "/ˈstreŋθənɪŋ/", "(STRÉNK-thã-nin)", "Fortalecer"],
+            ["Volunteering", "/ˌvɑːlənˈtɪrɪŋ/", "(vó-lãn-TÍ-rin)", "Trabalhar como voluntário"],
+            ["Writing", "/ˈraɪtɪŋ/", "(RÁI-tin)", "Escrever"]
+        ];
+
+        const fullStoryText = `Maintaining a good quality of life involves more than just eating well and exercising. It's also about finding activities that bring joy and reduce stress. Having a hobby is an excellent way of achieving this balance. For many, painting or drawing offers a creative outlet. The act of creating something new is incredibly rewarding. Some people prefer more active pursuits. Hiking in nature, for example, is not only good for the body but also for the mind. Being outdoors and breathing fresh air can be very therapeutic. Similarly, swimming is a fantastic full-body workout without putting too much strain on the joints. For those interested in mental challenges, learning a new language or playing a musical instrument are wonderful options. Practicing a new skill requires focus and dedication, which is great for brain health. I, for one, enjoy solving complex puzzles in my free time. It's a great way of keeping my mind sharp. It's important to stop making excuses like I don't have time. Everyone can benefit from setting aside a small amount of time each week for a personal interest. Volunteering is another fulfilling activity that gives a sense of purpose. By helping others, we often end up helping ourselves. In the end, it doesn't matter what you choose. The key is in the doing. Finding an activity you love and making it a regular part of your life is a significant step towards a healthier and happier existence. Without exploring different interests, you might never discover a passion that could enrich your life immensely.`;
+
+        // =========================================================================
+        // 2. RENDERIZAÇÃO DAS 30 FRASES E DOS 32 CARDS DE VOCABULÁRIO
+        // =========================================================================
+        function renderSentencesTable() {
+            const tbody = document.getElementById('sentencesTableBody');
+            tbody.innerHTML = gerundSentences.map((item, idx) => {
+                const cleanText = item[0].replace(/<\/?b>/g, '');
+                const searchData = `${cleanText} ${item[3]} ${item[4]}`.toLowerCase();
+                return `
+                <tr class="sentence-row" data-search="${searchData.replace(/"/g, '&quot;')}">
+                    <td>
+                        <div>
+                            <span class="num-badge">#${idx + 1}</span>
+                            <span class="context-pill ${item[5]}">${item[4]}</span>
+                        </div>
+                        <span class="sentence-en">${item[0]}</span>
+                        <button class="audio-btn-inline" onclick="playSentenceAudio(${idx})" title="Ouvir frase #${idx + 1}">🔊</button>
+                    </td>
+                    <td>
+                        <span class="ipa-symbol">${item[1]}</span>
+                        <span class="character-portuguese-phonetics">${item[2]}</span>
+                        <span class="details-translation">${item[3]}</span>
+                    </td>
+                </tr>`;
+            }).join('');
         }
 
-        loadVoices();
+        function renderVocabGrid() {
+            const grid = document.getElementById('vocabGrid');
+            grid.innerHTML = vocabWords.map((v, idx) => {
+                const searchData = `${v[0]} ${v[3]}`.toLowerCase();
+                return `
+                <div class="vocab-item" data-search="${searchData.replace(/"/g, '&quot;')}">
+                    <div class="vocab-text">
+                        <span class="vocab-en">${v[0]}</span>
+                        <span class="vocab-ipa">${v[1]}</span>
+                        <span class="vocab-phon">${v[2]}</span>
+                        <span class="vocab-pt">${v[3]}</span>
+                    </div>
+                    <button class="audio-btn-round" onclick="playVocabAudio(${idx})" title="Ouvir ${v[0]}">🔊</button>
+                </div>`;
+            }).join('');
+        }
 
-        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        function filterSentences() {
+            const q = document.getElementById('sentenceSearch').value.toLowerCase();
+            document.querySelectorAll('.sentence-row').forEach(row => {
+                row.style.display = row.getAttribute('data-search').includes(q) ? '' : 'none';
+            });
+            syncSvgSize();
+        }
+
+        function filterVocab() {
+            const q = document.getElementById('vocabSearch').value.toLowerCase();
+            document.querySelectorAll('.vocab-item').forEach(card => {
+                card.style.display = card.getAttribute('data-search').includes(q) ? 'flex' : 'none';
+            });
+            syncSvgSize();
+        }
+
+        // =========================================================================
+        // 3. SISTEMA AVANÇADO DE DESENHO, FORMAS, CARIMBOS E TRAVA REAL DE TELA
+        // =========================================================================
+        const STORAGE_PREFIX = 'inglesipa_aula31_';
+        const DRAWINGS_KEY = 'drawings_v2';
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const drawLayer = document.getElementById('drawLayer');
+        const lessonBook = document.getElementById('lessonBook');
+
+        let penDockOpen = false;
+        let currentTool = 'pen'; // pen | highlighter | rect | ellipse | arrow | stamp-question | stamp-x | stamp-check | eraser
+        let currentColor = '#e11d48';
+        let currentPenSize = 4;
+        let strokesHidden = false;
+        let strokes = [];
+        let isDrawing = false;
+        let isErasing = false;
+        let activeStroke = null;
+        let activeEl = null;
+
+        // BLOQUEIO TOTAL DE ROLAGEM NO CELULAR / TABLET / DESKTOP QUANDO A CANETA ESTIVER ATIVA
+        function preventTouchScroll(e) {
+            if (!penDockOpen) return;
+            if (e.target && (e.target.closest('#penDock') || e.target.closest('#penFab'))) {
+                return;
+            }
+            e.preventDefault();
+        }
+
+        function preventWheelScroll(e) {
+            if (!penDockOpen) return;
+            e.preventDefault();
+        }
+
+        document.addEventListener('touchmove', preventTouchScroll, { passive: false });
+        document.addEventListener('wheel', preventWheelScroll, { passive: false });
+
+        // Atalho seguro no teclado (apenas ESC para destravar a tela sem conflitar com letras)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && penDockOpen) {
+                closePenDock();
+                showToast('🔓 Tela destravada para leitura e rolagem!');
+            }
+        });
+
+        function syncSvgSize() {
+            if (!lessonBook || !drawLayer) return;
+            const w = lessonBook.clientWidth;
+            const h = lessonBook.scrollHeight;
+            drawLayer.setAttribute('width', w);
+            drawLayer.setAttribute('height', h);
+            drawLayer.style.height = h + 'px';
+        }
+
+        function buildSmoothPath(points) {
+            if (!points || points.length === 0) return '';
+            if (points.length === 1) {
+                const [x, y] = points[0];
+                return `M ${x} ${y} L ${x + 0.1} ${y + 0.1}`;
+            }
+            let d = `M ${points[0][0].toFixed(1)} ${points[0][1].toFixed(1)}`;
+            for (let i = 1; i < points.length - 1; i++) {
+                const midX = ((points[i][0] + points[i + 1][0]) / 2).toFixed(1);
+                const midY = ((points[i][1] + points[i + 1][1]) / 2).toFixed(1);
+                d += ` Q ${points[i][0].toFixed(1)} ${points[i][1].toFixed(1)}, ${midX} ${midY}`;
+            }
+            const last = points[points.length - 1];
+            d += ` L ${last[0].toFixed(1)} ${last[1].toFixed(1)}`;
+            return d;
+        }
+
+        function createSvgElementForStroke(s) {
+            // 1. CANETA LIVRE OU MARCA-TEXTO
+            if (s.tool === 'pen' || s.tool === 'highlighter') {
+                const path = document.createElementNS(svgNS, 'path');
+                path.setAttribute('d', buildSmoothPath(s.points));
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', s.color);
+                path.setAttribute('stroke-linecap', 'round');
+                path.setAttribute('stroke-linejoin', 'round');
+                if (s.tool === 'highlighter') {
+                    path.setAttribute('stroke-width', s.width * 4.5);
+                    path.setAttribute('stroke-opacity', '0.36');
+                    path.classList.add('stroke-highlighter');
+                } else {
+                    path.setAttribute('stroke-width', s.width);
+                    path.setAttribute('stroke-opacity', '0.94');
+                }
+                return path;
+            }
+
+            // 2. RETÂNGULO PRONTO
+            if (s.tool === 'rect') {
+                const rect = document.createElementNS(svgNS, 'rect');
+                const x = Math.min(s.x1, s.x2);
+                const y = Math.min(s.y1, s.y2);
+                const w = Math.abs(s.x2 - s.x1);
+                const h = Math.abs(s.y2 - s.y1);
+                rect.setAttribute('x', x.toFixed(1));
+                rect.setAttribute('y', y.toFixed(1));
+                rect.setAttribute('width', w.toFixed(1));
+                rect.setAttribute('height', h.toFixed(1));
+                rect.setAttribute('rx', '4');
+                rect.setAttribute('fill', 'none');
+                rect.setAttribute('stroke', s.color);
+                rect.setAttribute('stroke-width', Math.max(2, s.width * 0.78));
+                rect.setAttribute('stroke-opacity', '0.94');
+                return rect;
+            }
+
+            // 3. CÍRCULO / OVAL PRONTO
+            if (s.tool === 'ellipse') {
+                const el = document.createElementNS(svgNS, 'ellipse');
+                const cx = (s.x1 + s.x2) / 2;
+                const cy = (s.y1 + s.y2) / 2;
+                const rx = Math.abs(s.x2 - s.x1) / 2;
+                const ry = Math.abs(s.y2 - s.y1) / 2;
+                el.setAttribute('cx', cx.toFixed(1));
+                el.setAttribute('cy', cy.toFixed(1));
+                el.setAttribute('rx', rx.toFixed(1));
+                el.setAttribute('ry', ry.toFixed(1));
+                el.setAttribute('fill', 'none');
+                el.setAttribute('stroke', s.color);
+                el.setAttribute('stroke-width', Math.max(2, s.width * 0.78));
+                el.setAttribute('stroke-opacity', '0.94');
+                return el;
+            }
+
+            // 4. SETA FINA
+            if (s.tool === 'arrow') {
+                const g = document.createElementNS(svgNS, 'g');
+                const strokeW = Math.max(2, s.width * 0.65);
+
+                const line = document.createElementNS(svgNS, 'line');
+                line.setAttribute('x1', s.x1.toFixed(1));
+                line.setAttribute('y1', s.y1.toFixed(1));
+                line.setAttribute('x2', s.x2.toFixed(1));
+                line.setAttribute('y2', s.y2.toFixed(1));
+                line.setAttribute('stroke', s.color);
+                line.setAttribute('stroke-width', strokeW);
+                line.setAttribute('stroke-linecap', 'round');
+                g.appendChild(line);
+
+                const angle = Math.atan2(s.y2 - s.y1, s.x2 - s.x1);
+                const headLen = 10 + s.width * 1.3;
+                const spread = Math.PI / 6.5;
+
+                const hx1 = s.x2 - headLen * Math.cos(angle - spread);
+                const hy1 = s.y2 - headLen * Math.sin(angle - spread);
+                const hx2 = s.x2 - headLen * Math.cos(angle + spread);
+                const hy2 = s.y2 - headLen * Math.sin(angle + spread);
+
+                const head = document.createElementNS(svgNS, 'path');
+                head.setAttribute('d', `M ${hx1.toFixed(1)} ${hy1.toFixed(1)} L ${s.x2.toFixed(1)} ${s.y2.toFixed(1)} L ${hx2.toFixed(1)} ${hy2.toFixed(1)}`);
+                head.setAttribute('fill', 'none');
+                head.setAttribute('stroke', s.color);
+                head.setAttribute('stroke-width', strokeW);
+                head.setAttribute('stroke-linecap', 'round');
+                head.setAttribute('stroke-linejoin', 'round');
+                g.appendChild(head);
+                return g;
+            }
+
+            // 5. CARIMBOS PRONTOS (INTERROGAÇÃO ?, X, CHECKMARK ✓)
+            if (s.tool === 'stamp-question' || s.tool === 'stamp-x' || s.tool === 'stamp-check') {
+                const g = document.createElementNS(svgNS, 'g');
+                const cx = s.x;
+                const cy = s.y;
+                const sz = s.size || 24;
+                const sw = Math.max(2.6, s.width * 0.85);
+
+                if (s.tool === 'stamp-check') {
+                    const p = document.createElementNS(svgNS, 'path');
+                    p.setAttribute('d', `M ${(cx - 0.55 * sz).toFixed(1)} ${(cy + 0.04 * sz).toFixed(1)} L ${(cx - 0.14 * sz).toFixed(1)} ${(cy + 0.45 * sz).toFixed(1)} L ${(cx + 0.58 * sz).toFixed(1)} ${(cy - 0.45 * sz).toFixed(1)}`);
+                    p.setAttribute('fill', 'none');
+                    p.setAttribute('stroke', s.color);
+                    p.setAttribute('stroke-width', sw);
+                    p.setAttribute('stroke-linecap', 'round');
+                    p.setAttribute('stroke-linejoin', 'round');
+                    g.appendChild(p);
+                } else if (s.tool === 'stamp-x') {
+                    const p = document.createElementNS(svgNS, 'path');
+                    p.setAttribute('d', `M ${(cx - 0.44 * sz).toFixed(1)} ${(cy - 0.44 * sz).toFixed(1)} L ${(cx + 0.44 * sz).toFixed(1)} ${(cy + 0.44 * sz).toFixed(1)} M ${(cx + 0.44 * sz).toFixed(1)} ${(cy - 0.44 * sz).toFixed(1)} L ${(cx - 0.44 * sz).toFixed(1)} ${(cy + 0.44 * sz).toFixed(1)}`);
+                    p.setAttribute('fill', 'none');
+                    p.setAttribute('stroke', s.color);
+                    p.setAttribute('stroke-width', sw);
+                    p.setAttribute('stroke-linecap', 'round');
+                    g.appendChild(p);
+                } else if (s.tool === 'stamp-question') {
+                    const curve = document.createElementNS(svgNS, 'path');
+                    curve.setAttribute('d', `M ${(cx - 0.28 * sz).toFixed(1)} ${(cy - 0.24 * sz).toFixed(1)} C ${(cx - 0.28 * sz).toFixed(1)} ${(cy - 0.62 * sz).toFixed(1)}, ${(cx + 0.34 * sz).toFixed(1)} ${(cy - 0.62 * sz).toFixed(1)}, ${(cx + 0.34 * sz).toFixed(1)} ${(cy - 0.24 * sz).toFixed(1)} C ${(cx + 0.34 * sz).toFixed(1)} ${(cy - 0.02 * sz).toFixed(1)}, ${cx.toFixed(1)} ${(cy + 0.02 * sz).toFixed(1)}, ${cx.toFixed(1)} ${(cy + 0.2 * sz).toFixed(1)}`);
+                    curve.setAttribute('fill', 'none');
+                    curve.setAttribute('stroke', s.color);
+                    curve.setAttribute('stroke-width', sw);
+                    curve.setAttribute('stroke-linecap', 'round');
+                    g.appendChild(curve);
+
+                    const dot = document.createElementNS(svgNS, 'circle');
+                    dot.setAttribute('cx', cx.toFixed(1));
+                    dot.setAttribute('cy', (cy + 0.46 * sz).toFixed(1));
+                    dot.setAttribute('r', Math.max(2, sw * 0.62).toFixed(1));
+                    dot.setAttribute('fill', s.color);
+                    g.appendChild(dot);
+                }
+                return g;
+            }
+            return null;
+        }
+
+        function renderAllStrokes() {
+            drawLayer.innerHTML = '';
+            strokes.forEach(s => {
+                const el = createSvgElementForStroke(s);
+                if (el) drawLayer.appendChild(el);
+            });
+            updateNotesSummary();
+        }
+
+        function saveStrokes() {
+            try {
+                const compact = strokes.map(s => {
+                    if (s.tool === 'pen' || s.tool === 'highlighter') {
+                        return {
+                            id: s.id, tool: s.tool, color: s.color, width: s.width,
+                            points: s.points.map(p => [Math.round(p[0] * 10) / 10, Math.round(p[1] * 10) / 10])
+                        };
+                    }
+                    if (s.tool === 'rect' || s.tool === 'ellipse' || s.tool === 'arrow') {
+                        return {
+                            id: s.id, tool: s.tool, color: s.color, width: s.width,
+                            x1: Math.round(s.x1 * 10) / 10, y1: Math.round(s.y1 * 10) / 10,
+                            x2: Math.round(s.x2 * 10) / 10, y2: Math.round(s.y2 * 10) / 10
+                        };
+                    }
+                    return {
+                        id: s.id, tool: s.tool, color: s.color, width: s.width,
+                        x: Math.round(s.x * 10) / 10, y: Math.round(s.y * 10) / 10, size: s.size
+                    };
+                });
+                window.localStorage.setItem(STORAGE_PREFIX + DRAWINGS_KEY, JSON.stringify(compact));
+            } catch (e) {
+                console.warn('Não foi possível salvar os desenhos no localStorage:', e);
+            }
+            updateNotesSummary();
+        }
+
+        function loadStrokes() {
+            try {
+                const raw = window.localStorage.getItem(STORAGE_PREFIX + DRAWINGS_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed)) {
+                        strokes = parsed;
+                        renderAllStrokes();
+                    }
+                }
+            } catch (e) {
+                strokes = [];
+            }
+        }
+
+        function getRelativePoint(e) {
+            const rect = lessonBook.getBoundingClientRect();
+            return [e.clientX - rect.left, e.clientY - rect.top];
+        }
+
+        function pointToSegmentDist(px, py, x1, y1, x2, y2) {
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const lenSq = dx * dx + dy * dy;
+            if (lenSq === 0) return Math.hypot(px - x1, py - y1);
+            let t = ((px - x1) * dx + (py - y1) * dy) / lenSq;
+            t = Math.max(0, Math.min(1, t));
+            return Math.hypot(px - (x1 + t * dx), py - (y1 + t * dy));
+        }
+
+        function isPointHittingStroke(x, y, s) {
+            const tol = 18;
+            if (s.tool === 'pen' || s.tool === 'highlighter') {
+                const r = s.tool === 'highlighter' ? Math.max(tol, s.width * 2.5) : tol;
+                for (let i = 0; i < s.points.length; i++) {
+                    if (Math.hypot(s.points[i][0] - x, s.points[i][1] - y) <= r) return true;
+                }
+                return false;
+            }
+            if (s.tool === 'rect') {
+                const minX = Math.min(s.x1, s.x2), maxX = Math.max(s.x1, s.x2);
+                const minY = Math.min(s.y1, s.y2), maxY = Math.max(s.y1, s.y2);
+                return (
+                    pointToSegmentDist(x, y, minX, minY, maxX, minY) <= tol ||
+                    pointToSegmentDist(x, y, maxX, minY, maxX, maxY) <= tol ||
+                    pointToSegmentDist(x, y, maxX, maxY, minX, maxY) <= tol ||
+                    pointToSegmentDist(x, y, minX, maxY, minX, minY) <= tol
+                );
+            }
+            if (s.tool === 'ellipse') {
+                const cx = (s.x1 + s.x2) / 2, cy = (s.y1 + s.y2) / 2;
+                const rx = Math.max(4, Math.abs(s.x2 - s.x1) / 2);
+                const ry = Math.max(4, Math.abs(s.y2 - s.y1) / 2);
+                for (let a = 0; a < 36; a++) {
+                    const rad = (a / 36) * Math.PI * 2;
+                    const ex = cx + rx * Math.cos(rad);
+                    const ey = cy + ry * Math.sin(rad);
+                    if (Math.hypot(ex - x, ey - y) <= tol) return true;
+                }
+                return false;
+            }
+            if (s.tool === 'arrow') {
+                return pointToSegmentDist(x, y, s.x1, s.y1, s.x2, s.y2) <= tol;
+            }
+            if (s.tool.startsWith('stamp-')) {
+                const hitR = Math.max(22, (s.size || 24) * 0.85);
+                return Math.hypot(s.x - x, s.y - y) <= hitR;
+            }
+            return false;
+        }
+
+        function eraseAtPoint(x, y) {
+            const beforeLen = strokes.length;
+            strokes = strokes.filter(s => !isPointHittingStroke(x, y, s));
+            if (strokes.length !== beforeLen) {
+                renderAllStrokes();
+                saveStrokes();
+            }
+        }
+
+        drawLayer.addEventListener('pointerdown', (e) => {
+            if (!penDockOpen) return;
+            if (strokesHidden) toggleDrawingsVisibility();
+            e.preventDefault();
+            try { drawLayer.setPointerCapture(e.pointerId); } catch (err) {}
+            const [x, y] = getRelativePoint(e);
+
+            if (currentTool === 'eraser') {
+                isErasing = true;
+                eraseAtPoint(x, y);
+                return;
+            }
+
+            if (currentTool.startsWith('stamp-')) {
+                const stampSize = currentPenSize <= 2.5 ? 18 : (currentPenSize <= 4 ? 26 : 36);
+                const stamp = {
+                    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+                    tool: currentTool,
+                    color: currentColor,
+                    width: currentPenSize,
+                    x, y,
+                    size: stampSize
+                };
+                strokes.push(stamp);
+                const el = createSvgElementForStroke(stamp);
+                if (el) drawLayer.appendChild(el);
+                saveStrokes();
+                return;
+            }
+
+            isDrawing = true;
+            const newId = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+            if (currentTool === 'pen' || currentTool === 'highlighter') {
+                activeStroke = {
+                    id: newId,
+                    tool: currentTool,
+                    color: currentColor,
+                    width: currentPenSize,
+                    points: [[x, y]]
+                };
+            } else {
+                activeStroke = {
+                    id: newId,
+                    tool: currentTool,
+                    color: currentColor,
+                    width: currentPenSize,
+                    x1: x, y1: y,
+                    x2: x, y2: y
+                };
+            }
+
+            activeEl = createSvgElementForStroke(activeStroke);
+            if (activeEl) drawLayer.appendChild(activeEl);
+        });
+
+        drawLayer.addEventListener('pointermove', (e) => {
+            if (!penDockOpen) return;
+            const [x, y] = getRelativePoint(e);
+
+            if (isErasing && currentTool === 'eraser') {
+                e.preventDefault();
+                eraseAtPoint(x, y);
+                return;
+            }
+
+            if (!isDrawing || !activeStroke || !activeEl) return;
+            e.preventDefault();
+
+            if (activeStroke.tool === 'pen' || activeStroke.tool === 'highlighter') {
+                const pts = activeStroke.points;
+                const prev = pts[pts.length - 1];
+                if ((x - prev[0]) ** 2 + (y - prev[1]) ** 2 >= 9) {
+                    pts.push([x, y]);
+                    activeEl.setAttribute('d', buildSmoothPath(pts));
+                }
+            } else {
+                activeStroke.x2 = x;
+                activeStroke.y2 = y;
+                const updatedEl = createSvgElementForStroke(activeStroke);
+                if (updatedEl) {
+                    drawLayer.replaceChild(updatedEl, activeEl);
+                    activeEl = updatedEl;
+                }
+            }
+        });
+
+        function finishPointerAction() {
+            if (isErasing) {
+                isErasing = false;
+                return;
+            }
+            if (!isDrawing || !activeStroke) return;
+            isDrawing = false;
+
+            if (activeStroke.tool === 'rect' || activeStroke.tool === 'ellipse' || activeStroke.tool === 'arrow') {
+                const dist = Math.hypot(activeStroke.x2 - activeStroke.x1, activeStroke.y2 - activeStroke.y1);
+                if (dist < 6) {
+                    if (activeEl && activeEl.parentNode) activeEl.parentNode.removeChild(activeEl);
+                    activeStroke = null;
+                    activeEl = null;
+                    return;
+                }
+            }
+
+            strokes.push(activeStroke);
+            activeStroke = null;
+            activeEl = null;
+            saveStrokes();
+        }
+
+        drawLayer.addEventListener('pointerup', finishPointerAction);
+        drawLayer.addEventListener('pointercancel', finishPointerAction);
+
+        function togglePenMode() {
+            if (penDockOpen) {
+                closePenDock();
+            } else {
+                openPenDock('pen');
+            }
+        }
+
+        function openPenDock(initialTool) {
+            syncSvgSize();
+            penDockOpen = true;
+            document.documentElement.classList.add('drawing-locked');
+            document.body.classList.add('drawing-locked');
+            document.getElementById('penDock').classList.add('open');
+
+            const fab = document.getElementById('penFab');
+            fab.classList.add('is-locked-mode');
+            fab.innerHTML = '🔓 Destravar Tela';
+
+            setDrawTool(initialTool || 'pen');
+            if (initialTool === 'highlighter') {
+                const yellowSwatch = document.querySelector('.color-swatch[data-color="#facc15"]');
+                if (yellowSwatch) setDrawColor('#facc15', yellowSwatch);
+            }
+        }
+
+        function closePenDock() {
+            penDockOpen = false;
+            isDrawing = false;
+            isErasing = false;
+            document.documentElement.classList.remove('drawing-locked');
+            document.body.classList.remove('drawing-locked');
+            drawLayer.classList.remove('active-pen', 'active-stamp', 'active-eraser');
+            document.getElementById('penDock').classList.remove('open');
+
+            const fab = document.getElementById('penFab');
+            fab.classList.remove('is-locked-mode');
+            fab.innerHTML = '✏️ Caneta / Formas';
+
+            hideClearDrawConfirm();
+        }
+
+        function setDrawTool(tool) {
+            currentTool = tool;
+            const allToolIds = ['pen', 'highlighter', 'rect', 'ellipse', 'arrow', 'stamp-question', 'stamp-x', 'stamp-check', 'eraser'];
+            allToolIds.forEach(id => {
+                const b = document.getElementById('tool-' + id);
+                if (b) b.className = 'dock-btn';
+            });
+
+            drawLayer.classList.remove('active-pen', 'active-stamp', 'active-eraser');
+            const banner = document.getElementById('penModeBanner');
+            const activeBtn = document.getElementById('tool-' + tool);
+
+            if (tool === 'pen') {
+                if (activeBtn) activeBtn.classList.add('active');
+                drawLayer.classList.add('active-pen');
+                banner.textContent = '🔒 Tela TRAVADA (Caneta) — Escreva ou sublinhe livremente sem a tela rolar! Toque em "🔓 Destravar Tela" para rolar.';
+            } else if (tool === 'highlighter') {
+                if (activeBtn) activeBtn.classList.add('active-hl');
+                drawLayer.classList.add('active-pen');
+                banner.textContent = '🔒 Tela TRAVADA (Marca-texto) — Arraste sobre palavras ou regras para destacar sem cobrir o texto.';
+            } else if (tool === 'rect' || tool === 'ellipse' || tool === 'arrow') {
+                if (activeBtn) activeBtn.classList.add('active-shape');
+                drawLayer.classList.add('active-pen');
+                const labelMap = {
+                    rect: 'Retângulo — Toque e arraste para enquadrar uma regra ou frase.',
+                    ellipse: 'Círculo / Oval — Toque e arraste para circular qualquer palavra.',
+                    arrow: 'Seta Fina — Arraste do ponto de origem até a palavra que você quer apontar!'
+                };
+                banner.textContent = '🔒 Tela TRAVADA (' + labelMap[tool] + ')';
+            } else if (tool.startsWith('stamp-')) {
+                if (activeBtn) activeBtn.classList.add('active-stamp');
+                drawLayer.classList.add('active-stamp');
+                const stampNames = {
+                    'stamp-question': 'Interrogação (?)',
+                    'stamp-x': 'Símbolo X (✖️)',
+                    'stamp-check': 'Checkmark Correto (✔️)'
+                };
+                banner.textContent = '🔒 Tela TRAVADA (Carimbo ' + stampNames[tool] + ') — Basta dar 1 toque onde quiser carimbar (mude Fina/Média/Grossa para alterar o tamanho).';
+            } else {
+                if (activeBtn) activeBtn.classList.add('active-er');
+                drawLayer.classList.add('active-eraser');
+                banner.textContent = '🔒 Tela TRAVADA (Borracha) — Toque ou arraste sobre qualquer traço, forma ou carimbo para apagar.';
+            }
+        }
+
+        function setDrawColor(hex, btnEl) {
+            currentColor = hex;
+            document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+            if (btnEl) btnEl.classList.add('selected');
+            if (currentTool === 'eraser') setDrawTool('pen');
+        }
+
+        function setPenSize(size, btnEl) {
+            currentPenSize = size;
+            document.querySelectorAll('.size-pill').forEach(p => p.classList.remove('selected'));
+            if (btnEl) btnEl.classList.add('selected');
+        }
+
+        function undoLastStroke() {
+            if (strokes.length === 0) {
+                showToast('Não há nenhuma marcação para desfazer.');
+                return;
+            }
+            strokes.pop();
+            renderAllStrokes();
+            saveStrokes();
+        }
+
+        function toggleDrawingsVisibility() {
+            strokesHidden = !strokesHidden;
+            drawLayer.classList.toggle('hidden-strokes', strokesHidden);
+            const btn = document.getElementById('toggleVisBtn');
+            btn.textContent = strokesHidden ? '👁️ Mostrar' : '👁️ Ocultar';
+        }
+
+        function showClearDrawConfirm() {
+            document.getElementById('clearDrawConfirm').classList.add('show');
+        }
+        function hideClearDrawConfirm() {
+            document.getElementById('clearDrawConfirm').classList.remove('show');
+        }
+        function confirmClearDrawings() {
+            strokes = [];
+            renderAllStrokes();
+            saveStrokes();
+            hideClearDrawConfirm();
+            showToast('🧹 Todas as marcações, formas e carimbos da Aula 31 foram apagados.');
+        }
+
+        // =========================================================================
+        // 4. SISTEMA DE OBSERVAÇÕES AUTO-SALVAS (LOCALSTORAGE + FALLBACK COOKIES)
+        // =========================================================================
+        const saveTimers = {};
+
+        function saveValue(key, val) {
+            const fullKey = STORAGE_PREFIX + key;
+            try {
+                window.localStorage.setItem(fullKey, val);
+            } catch (e) {
+                try {
+                    const encoded = encodeURIComponent(val.slice(0, 1500));
+                    document.cookie = `${fullKey}=${encoded}; max-age=31536000; path=/; SameSite=Lax`;
+                } catch (err) {
+                    console.warn('Armazenamento indisponível:', err);
+                }
+            }
+        }
+
+        function loadValue(key) {
+            const fullKey = STORAGE_PREFIX + key;
+            try {
+                const stored = window.localStorage.getItem(fullKey);
+                if (stored !== null) return stored;
+            } catch (e) {}
+            try {
+                const match = document.cookie.match(new RegExp('(?:^|; )' + fullKey.replace(/[.$?*|{}()[\]\\/+^]/g, '\\$&') + '=([^;]*)'));
+                return match ? decodeURIComponent(match[1]) : '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function deleteValue(key) {
+            const fullKey = STORAGE_PREFIX + key;
+            try { window.localStorage.removeItem(fullKey); } catch (e) {}
+            try { document.cookie = `${fullKey}=; max-age=0; path=/; SameSite=Lax`; } catch (e) {}
+        }
+
+        function syncNoteMirror(textarea) {
+            const id = textarea.id;
+            const mirror = document.getElementById('mirror_' + id);
+            const wrapper = document.querySelector(`[data-obs-wrapper="${id}"]`);
+            const text = textarea.value.trim();
+
+            if (mirror) mirror.textContent = textarea.value;
+            if (wrapper) {
+                if (text.length > 0) {
+                    wrapper.classList.add('has-note');
+                    wrapper.classList.remove('empty-note');
+                } else {
+                    wrapper.classList.remove('has-note');
+                    wrapper.classList.add('empty-note');
+                }
+            }
+        }
+
+        function updateNotesSummary() {
+            const textareas = document.querySelectorAll('.obs-textarea');
+            let filled = 0;
+            textareas.forEach(ta => {
+                if (ta.value.trim().length > 0) filled++;
+            });
+            const el = document.getElementById('notesSummary');
+            if (el) {
+                el.textContent = `Salvo automaticamente (${filled}/${textareas.length} observações · ${strokes.length} marcações)`;
+            }
+        }
+
+        function initPersistentFields() {
+            document.querySelectorAll('.obs-textarea').forEach(ta => {
+                const saved = loadValue(ta.id);
+                if (saved) ta.value = saved;
+                syncNoteMirror(ta);
+
+                ta.addEventListener('input', () => {
+                    saveValue(ta.id, ta.value);
+                    syncNoteMirror(ta);
+                    updateNotesSummary();
+                    syncSvgSize();
+
+                    const badge = document.getElementById('badge_' + ta.id);
+                    if (badge) {
+                        badge.classList.add('visible');
+                        clearTimeout(saveTimers[ta.id]);
+                        saveTimers[ta.id] = setTimeout(() => {
+                            badge.classList.remove('visible');
+                        }, 1800);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.exercise-input').forEach(inp => {
+                const saved = loadValue(inp.id);
+                if (saved) inp.value = saved;
+                inp.addEventListener('input', () => saveValue(inp.id, inp.value));
+            });
+
+            loadStrokes();
+            updateNotesSummary();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('statusToast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        function printWithNotes() {
+            closePenDock();
+            document.querySelectorAll('.obs-textarea').forEach(syncNoteMirror);
+            syncSvgSize();
+            window.print();
+        }
+
+        function exportNotesTxt() {
+            const lines = [];
+            lines.push('=====================================================');
+            lines.push('MÉTODO IPA - MINHAS ANOTAÇÕES DA AULA 31');
+            lines.push('Tema: Verbos com "-ing" como Nomes – Gerúndios');
+            lines.push('=====================================================\n');
+
+            let hasAny = false;
+            document.querySelectorAll('.obs-textarea').forEach(ta => {
+                const val = ta.value.trim();
+                if (val) {
+                    hasAny = true;
+                    const secName = ta.getAttribute('data-section-name') || ta.id;
+                    lines.push(`--- ${secName} ---`);
+                    lines.push(val + '\n');
+                }
+            });
+
+            if (!hasAny) {
+                showToast('Você ainda não escreveu nenhuma observação para exportar.');
+                return;
+            }
+
+            const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'minhas_observacoes_aula31.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('✅ Arquivo "minhas_observacoes_aula31.txt" baixado com sucesso!');
+        }
+
+        function showClearConfirm() {
+            document.getElementById('clearConfirmBox').classList.add('show');
+        }
+        function hideClearConfirm() {
+            document.getElementById('clearConfirmBox').classList.remove('show');
+        }
+
+        function confirmClearAll() {
+            document.querySelectorAll('.obs-textarea').forEach(ta => {
+                ta.value = '';
+                deleteValue(ta.id);
+                syncNoteMirror(ta);
+            });
+            document.querySelectorAll('.exercise-input').forEach(inp => {
+                inp.value = '';
+                deleteValue(inp.id);
+            });
+            strokes = [];
+            renderAllStrokes();
+            saveStrokes();
+            updateNotesSummary();
+            hideClearConfirm();
+            showToast('🗑️ Todas as observações, respostas e marcações da Aula 31 foram limpas.');
+        }
+
+        // =========================================================================
+        // 5. QUIZ INTERATIVO
+        // =========================================================================
+        function checkQuiz(button, isCorrect, qId, explanation) {
+            const parent = button.parentElement;
+            const buttons = parent.querySelectorAll('.quiz-btn');
+            buttons.forEach(btn => btn.disabled = true);
+
+            const feedback = document.getElementById('feedback-' + qId);
+            feedback.style.display = 'block';
+
+            if (isCorrect) {
+                button.classList.add('correct');
+                feedback.innerHTML = '✅ ' + explanation;
+                feedback.style.background = '#dcfce7';
+                feedback.style.color = '#14532d';
+            } else {
+                button.classList.add('incorrect');
+                buttons.forEach(btn => {
+                    if (btn.getAttribute('onclick').includes('true')) {
+                        btn.classList.add('correct');
+                    }
+                });
+                feedback.innerHTML = '❌ ' + explanation;
+                feedback.style.background = '#fee2e2';
+                feedback.style.color = '#7f1d1d';
+            }
+            syncSvgSize();
+        }
+
+        // =========================================================================
+        // 6. SINTETIZADOR DE VOZ NATIVO (WEB SPEECH API)
+        // =========================================================================
+        let voices = [];
+        let isStoryPlaying = false;
+
+        function loadVoices() {
+            if ('speechSynthesis' in window) {
+                voices = window.speechSynthesis.getVoices();
+            }
+        }
+        loadVoices();
+        if ('speechSynthesis' in window && window.speechSynthesis.onvoiceschanged !== undefined) {
             window.speechSynthesis.onvoiceschanged = loadVoices;
         }
 
-        function playAudio(text) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
+        function getBestVoice() {
+            if (voices.length === 0) loadVoices();
+            return voices.find(v => /^en(-|_)/i.test(v.lang) && /Google|Premium|Samantha|Microsoft|Natural/i.test(v.name))
+                || voices.find(v => v.lang === 'en-US')
+                || voices.find(v => v.lang.startsWith('en'));
+        }
 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US'; // Define idioma base
-                utterance.rate = 0.85; // Velocidade um pouco mais lenta para aprendizado
-
-                if (voices.length === 0) voices = window.speechSynthesis.getVoices();
-
-                // Estratégia de seleção de voz para evitar "sotaque do sistema"
-                // 1. Tenta voz específica "Google US English" (Android) ou "Samantha" (iOS) ou "Premium"
-                // 2. Tenta qualquer voz 'en-US' que não seja localService (geralmente melhores)
-                // 3. Tenta qualquer voz 'en-US'
-                // 4. Tenta qualquer voz que comece com 'en'
-                
-                let targetVoice = voices.find(voice => 
-                    (voice.name.includes('Google') && voice.lang === 'en-US') || 
-                    (voice.name.includes('Premium') && voice.lang === 'en-US') || 
-                    (voice.name.includes('Samantha') && voice.lang === 'en-US')
-                );
-
-                if (!targetVoice) {
-                    targetVoice = voices.find(voice => voice.lang === 'en-US' && !voice.localService);
-                }
-
-                if (!targetVoice) {
-                    targetVoice = voices.find(voice => voice.lang === 'en-US');
-                }
-
-                if (!targetVoice) {
-                    targetVoice = voices.find(voice => voice.lang.startsWith('en'));
-                }
-
-                if (targetVoice) {
-                    utterance.voice = targetVoice;
-                    // Força o idioma da voz encontrada para garantir
-                    utterance.lang = targetVoice.lang; 
-                }
-
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Desculpe, seu navegador não suporta a reprodução de áudio.");
+        function resetStoryButton() {
+            isStoryPlaying = false;
+            const btn = document.getElementById('storyAudioBtn');
+            if (btn) {
+                btn.textContent = '🔊 Ouvir Texto Completo';
+                btn.classList.remove('stop');
             }
+        }
+
+        function playAudio(text) {
+            if (!('speechSynthesis' in window)) {
+                showToast('⚠️ Seu navegador não oferece leitura de áudio nativa. Use Chrome, Safari ou Edge.');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            resetStoryButton();
+
+            const u = new SpeechSynthesisUtterance(text);
+            u.rate = 0.86;
+            u.pitch = 1;
+            const target = getBestVoice();
+            if (target) {
+                u.voice = target;
+                u.lang = target.lang;
+            } else {
+                u.lang = 'en-US';
+            }
+            window.speechSynthesis.speak(u);
+        }
+
+        function playSentenceAudio(idx) {
+            const clean = gerundSentences[idx][0].replace(/<\/?b>/g, '');
+            playAudio(clean);
+        }
+
+        function playVocabAudio(idx) {
+            playAudio(vocabWords[idx][0]);
+        }
+
+        function toggleStoryAudio() {
+            if (!('speechSynthesis' in window)) {
+                showToast('⚠️ Seu navegador não oferece leitura de áudio nativa. Use Chrome, Safari ou Edge.');
+                return;
+            }
+            if (isStoryPlaying) {
+                window.speechSynthesis.cancel();
+                resetStoryButton();
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            isStoryPlaying = true;
+            const btn = document.getElementById('storyAudioBtn');
+            btn.textContent = '⏹ Parar Leitura do Texto';
+            btn.classList.add('stop');
+
+            const u = new SpeechSynthesisUtterance(fullStoryText);
+            u.rate = 0.85;
+            u.pitch = 1;
+            const target = getBestVoice();
+            if (target) {
+                u.voice = target;
+                u.lang = target.lang;
+            } else {
+                u.lang = 'en-US';
+            }
+            u.onend = resetStoryButton;
+            u.onerror = resetStoryButton;
+            window.speechSynthesis.speak(u);
+        }
+
+        // INICIALIZAÇÃO E MONITORAMENTO DE TAMANHO DO LIVRO PARA A CAMADA SVG
+        renderSentencesTable();
+        renderVocabGrid();
+        initPersistentFields();
+        syncSvgSize();
+
+        window.addEventListener('resize', syncSvgSize);
+        if ('ResizeObserver' in window) {
+            const ro = new ResizeObserver(() => syncSvgSize());
+            ro.observe(lessonBook);
         }
     </script>
 </body>
